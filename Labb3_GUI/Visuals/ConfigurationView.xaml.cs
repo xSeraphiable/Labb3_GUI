@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Labb3_GUI.Dialogs;
+using Labb3_GUI.Models;
+using Labb3_GUI.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,33 @@ namespace Labb3_GUI.Visuals
     /// </summary>
     public partial class ConfigurationView : UserControl
     {
+        private int count = 1;
         public ConfigurationView()
         {
             InitializeComponent();
+
+            
+        }
+
+
+
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new PackOptionsDialog();
+
+            // Visa som modalt fönster (användaren måste stänga det innan de går vidare)
+            dialog.ShowDialog();
+
+            // ...eller icke-modalt (öppet parallellt):
+            // dialog.Show();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            QuestionPackViewModel viewModel = (DataContext as QuestionPackViewModel);
+            viewModel.Name = "New name";
+            viewModel.Questions.Add(new Question($"Fråga {count++}", "2", "3", "1", "4"));
+
         }
     }
 }

@@ -6,7 +6,19 @@
              xmlns:local="clr-namespace:Labb3_GUI.Visuals"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        
-    </Grid>
+    <Menu>
+
+        <MenuItem Header="_File">
+            <MenuItem Header="_New Question Pack"/>
+            <Separator/>
+            <MenuItem Header="E_xit"/>
+        </MenuItem>
+
+        <MenuItem Header="_Edit">
+            <MenuItem Header="A_dd Question"/>
+            <MenuItem Header="_Delete Question" InputGestureText="Ctrl+R" />
+            <MenuItem Header="Set Pack Name" Command="{Binding PlayerViewModel.SetPackNameCommand}"/>
+        </MenuItem>
+
+    </Menu>
 </UserControl>

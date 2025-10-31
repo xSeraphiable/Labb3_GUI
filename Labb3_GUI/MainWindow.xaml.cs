@@ -19,31 +19,13 @@ namespace Labb3_GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
 
-            var pack = new QuestionPack("MyQuestionPack");
-            DataContext = new QuestionPackViewModel(pack);
+           DataContext = new MainWindowViewModel();
         }
 
-        private void Open_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new PackOptionsDialog();
-
-            // Visa som modalt fönster (användaren måste stänga det innan de går vidare)
-            dialog.ShowDialog();
-
-            // ...eller icke-modalt (öppet parallellt):
-            // dialog.Show();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //KOLLA UPP ANTECKNINGAR FRÅN LEKTIONEN!
-            //var myviewModel = new QuestionPackViewModel();
-            //(DataContext as QuestionPackViewModel).Name = "New name";
-            
-        }
     }
 }

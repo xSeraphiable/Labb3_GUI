@@ -4,32 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Labb3_GUI"
+        xmlns:views="clr-namespace:Labb3_GUI.Visuals"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            <Label Margin="20,30,20,0" Padding="0" Content="{Binding Path=Name}"/>
-            <TextBlock Margin="10" Height="300" Background="LightGray"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        </StackPanel>
-        <StackPanel Grid.Column="1">
-            <Label Margin="20,30,20,0" Padding="0" Content="Question:"/>
-            <TextBox Margin="20,0,20,20" Height="100"/>
+        <views:MenuView Grid.Row="0"/>
+       <!--<views:PlayerView Grid.Row="1"/>-->
+        <views:ConfigurationView Grid.Row="1"/>
 
-            <Label Margin="20,10,20,0" Padding="0" Content="Correct answer:"/>
-            <TextBox Margin="20,0,20,0"/>
-            <Label Margin="20,10,20,0" Padding="0" Content="First incorrect answer:"/>
-            <TextBox Margin="20,0,20,0"/>
-            <Label Margin="20,10,20,0" Padding="0" Content="Second incorrect answer:"/>
-            <TextBox Margin="20,0,20,0"/>
-            <Label Margin="20,10,20,0" Padding="0" Content="Third incorrect answer:"/>
-            <TextBox Margin="20,0,20,0"/>
 
-        </StackPanel>
 
     </Grid>
 </Window>

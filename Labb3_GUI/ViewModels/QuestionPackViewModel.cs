@@ -39,20 +39,21 @@ internal class QuestionPackViewModel : ViewModelBase
     }
 
     public ObservableCollection<Question> Questions { get; set; }
+
     public string Name
     {
         get => _model.Name;
         set
         {
             _model.Name = value;
-            RaisePropertyChanged("Hej");
-
+            RaisePropertyChanged();
         }
     }
 
     public Difficulty difficulty
     {
-        get => difficulty; set
+        get => _model.Difficulty;
+        set
         {
             _model.Difficulty = value;
             RaisePropertyChanged();
@@ -61,7 +62,7 @@ internal class QuestionPackViewModel : ViewModelBase
 
     public int TimeLimitInSeconds
     {
-        get => TimeLimitInSeconds;
+        get => _model.TimeLimitInSeconds;
         set
         {
             _model.TimeLimitInSeconds = value;
