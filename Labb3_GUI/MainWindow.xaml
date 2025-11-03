@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:Labb3_GUI"
         xmlns:views="clr-namespace:Labb3_GUI.Visuals"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="600"
+        MinHeight="500"
+        MinWidth="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -14,10 +16,8 @@
         </Grid.RowDefinitions>
 
         <views:MenuView Grid.Row="0"/>
-       <!--<views:PlayerView Grid.Row="1"/>-->
+        <!--<views:PlayerView Grid.Row="1"/>-->
         <views:ConfigurationView Grid.Row="1"/>
-
-
 
     </Grid>
 </Window>

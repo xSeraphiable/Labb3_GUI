@@ -4,20 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Labb3_GUI.Visuals"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             >
     <Menu>
 
         <MenuItem Header="_File">
-            <MenuItem Header="_New Question Pack"/>
+            <MenuItem x:Name="newQuestionPack" Header="_New Question Pack" Click="newQuestionPack_Click"/>
+            <MenuItem x:Name="choosePack" Header="_Choose Question Pack"/>
             <Separator/>
-            <MenuItem Header="E_xit"/>
+            <MenuItem Header="E_xit" Icon="{fa:Icon xmark}"/>
         </MenuItem>
 
         <MenuItem Header="_Edit">
-            <MenuItem Header="A_dd Question"/>
-            <MenuItem Header="_Delete Question" InputGestureText="Ctrl+R" />
+            <MenuItem Header="A_dd Question" Icon="{fa:Icon plus}"/>
+            <MenuItem Header="_Delete Question" InputGestureText="Ctrl+R" Icon="{fa:Icon minus}"/>
             <MenuItem Header="Set Pack Name" Command="{Binding PlayerViewModel.SetPackNameCommand}"/>
+            <MenuItem x:Name="EditPack" Header="E_dit Question Pack" Click="EditPack_Click" Icon="{fa:Icon pentosquare}"/>
+        </MenuItem>
+
+        <MenuItem Header="_View">
+            <MenuItem Header="Play" Icon="{fa:Icon play}"/>
         </MenuItem>
 
     </Menu>

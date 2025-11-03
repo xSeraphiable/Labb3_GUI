@@ -8,9 +8,9 @@ using Labb3_GUI.Models;
 
 namespace Labb3_GUI.ViewModels
 {
-    internal class MainWindowViewModel : ViewModelBase
+    class MainWindowViewModel : ViewModelBase
     {
-        public ObservableCollection<MainWindowViewModel> Packs { get; } = new();
+        public ObservableCollection<QuestionPackViewModel> Packs { get; } = new();
 
         private QuestionPackViewModel _activePack;
 
@@ -25,8 +25,8 @@ namespace Labb3_GUI.ViewModels
             }
         }
 
-        public PlayerViewModel? PlayerViewModel { get; set; }
-        public ConfigurationViewModel? ConfigurationViewModel { get; set; }
+        public PlayerViewModel? PlayerViewModel { get; }
+        public ConfigurationViewModel? ConfigurationViewModel { get; }
 
         public MainWindowViewModel()
         {

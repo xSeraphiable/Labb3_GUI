@@ -10,16 +10,33 @@
              >
     <Grid>
         <Grid.ColumnDefinitions>
-       <ColumnDefinition/>
-       <ColumnDefinition/>
-   </Grid.ColumnDefinitions>
-   <StackPanel Grid.Column="0">
-       <Label Margin="20,30,20,0" Padding="0" Content="{Binding ActivePack.Name}"/>
-       <TextBlock x:Name="textblock" Margin="10" Background="LightGray" Text="{Binding ActivePack.Questions[0].Query}"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Grid.Row="0">
+            <Label Margin="20,30,20,0" Padding="0" Content="{Binding ActivePack.Name}"/>
+        </StackPanel>
+        <ListBox Grid.Row="1" x:Name="textblock" Margin="10" 
+                   VerticalAlignment="Stretch" ItemsSource="{Binding ActivePack.Questions}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="Question 1" FontStyle="Italic"/>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Query}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate> 
+            </ListBox.ItemTemplate>
+        </ListBox>
 
-   </StackPanel>
-        <StackPanel Grid.Column="1">
-            <Label Margin="20,30,20,0" Padding="0" Content="Question:"/>
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Label Margin="10" Padding="0" Content="Question:"/>
             <TextBox Margin="20,0,20,20" Height="100"/>
 
             <Label Margin="20,10,20,0" Padding="0" Content="Correct answer:"/>
