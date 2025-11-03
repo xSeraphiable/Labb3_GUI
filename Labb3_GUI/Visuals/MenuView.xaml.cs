@@ -1,4 +1,6 @@
 ﻿using Labb3_GUI.Dialogs;
+using Labb3_GUI.Models;
+using Labb3_GUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +34,22 @@ namespace Labb3_GUI.Visuals
         {
             var dialog = new CreateNewPackDialog();
 
-            dialog.ShowDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                //TODO: lägg till difficulty (först i createpackdialog och sedan här)
+                var model = new QuestionPack(dialog.PackName, timeLimitInSeconds: dialog.TimeLimit);
+
+                var newPack = new QuestionPackViewModel(model);
+
+                
+                if (DataContext is MainWindowViewModel vm)
+                {
+                    vm.Packs.Add(newPack);
+
+                    vm.ActivePack = newPack;
+                }
+            }
+
 
         }
 

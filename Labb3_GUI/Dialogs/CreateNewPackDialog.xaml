@@ -19,7 +19,7 @@
         <StackPanel Grid.Row="1">
 
             <Label Content="Pack name:" Margin="10,0,0,0" Padding="0" />
-            <TextBox x:Name="packName" Width="180" BorderBrush="Gray"/>
+            <TextBox x:Name="packNameBox" Width="180" BorderBrush="Gray"/>
 
         </StackPanel>
 
@@ -37,14 +37,15 @@
         <StackPanel Grid.Row="3">
 
             <Label Content="Time limit:" Margin="10,0,0,0" Padding="0" />
-            <Slider Minimum="10" Maximum="120" TickFrequency="5" Margin="10,0,10,0" TickPlacement="BottomRight"/>
+            <Slider x:Name="TimeLimitSlider" Minimum="10" Maximum="120" TickFrequency="5" Margin="10,0,10,0" TickPlacement="BottomRight"/>
 
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
 
-            <Button Content="Confirm" Margin="8" Padding="5"/>
-            <Button Content="Cancel" Margin="8" Padding="5"/>
+            <Button x:Name="ConfirmButton" Content="Confirm" Margin="8" Padding="5" Click="ConfirmButton_Click"/>
+            <Button x:Name="CancelButton" Content="Cancel" Margin="8" Padding="5" Click="CancelButton_Click"
+                    />
 
         </StackPanel>
 

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Labb3_GUI.Command
-{
+{    
+
     internal class DelegateCommand : ICommand
     {
         private readonly Action<object?> execute;

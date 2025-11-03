@@ -25,7 +25,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="Question 1" FontStyle="Italic"/>
+                        <TextBlock Text="Question" FontStyle="Italic"/>
                         <StackPanel>
                             <TextBlock Text="{Binding Query}"/>
                         </StackPanel>

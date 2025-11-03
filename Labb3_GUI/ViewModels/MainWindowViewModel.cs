@@ -32,7 +32,7 @@ namespace Labb3_GUI.ViewModels
         {
             PlayerViewModel = new PlayerViewModel(this);
             ConfigurationViewModel = new ConfigurationViewModel(this);
-
+            //TODO: behöver kika på detta så jag visar rätt questionpack?
             var pack = new QuestionPack("My Question Pack");
             ActivePack = new QuestionPackViewModel(pack);
             ActivePack.Questions.Add(new Question($"Vad är 1 + 1?", "2", "5", "1", "11"));

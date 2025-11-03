@@ -11,7 +11,10 @@
     <Menu>
 
         <MenuItem Header="_File">
-            <MenuItem x:Name="newQuestionPack" Header="_New Question Pack" Click="newQuestionPack_Click"/>
+            <MenuItem x:Name="newQuestionPack" Header="_New Question Pack" 
+                      Click="newQuestionPack_Click"
+                      
+                      />
             <MenuItem x:Name="choosePack" Header="_Choose Question Pack"/>
             <Separator/>
             <MenuItem Header="E_xit" Icon="{fa:Icon xmark}"/>

@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -21,7 +22,7 @@ namespace Labb3_GUI.Visuals
     /// <summary>
     /// Interaction logic for ConfigurationView.xaml
     /// </summary>
-    public partial class ConfigurationView : UserControl
+    public partial class ConfigurationView : System.Windows.Controls.UserControl
     {
         private int count = 1;
         public ConfigurationView()
@@ -37,12 +38,9 @@ namespace Labb3_GUI.Visuals
         {
             var dialog = new PackOptionsDialog();
 
-            // Visa som modalt fönster (användaren måste stänga det innan de går vidare)
-            dialog.ShowDialog();
+            if (dialog.ShowDialog() == true) { }
 
-            // ...eller icke-modalt (öppet parallellt):
-            // dialog.Show();
-        }
+        }        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
