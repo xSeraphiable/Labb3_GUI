@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Labb3_GUI.Visuals"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding ConfigurationViewModel}"
@@ -17,11 +18,22 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+        <DockPanel HorizontalAlignment="Stretch" Margin="10 10 10 0">
+            <Label Content="{Binding ActivePack.Name}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Margin="2 2 2 0" Height="18" Width="18" Content="{fa:Icon Plus}"/>
+                <Button Margin="2 2 2 0" Height="18" Width="18" Content="{fa:Icon Minus}"/>
+                <Button Margin="2 2 2 0" Height="18" Width="18" Content="{fa:Icon pentosquare}"/>
+            </StackPanel>
+        </DockPanel>
         <StackPanel Grid.Column="0" Grid.Row="0">
-            <Label Margin="20,30,20,0" Padding="0" Content="{Binding ActivePack.Name}"/>
         </StackPanel>
-        <ListBox Grid.Row="1" x:Name="textblock" Margin="10" 
-                   VerticalAlignment="Stretch" ItemsSource="{Binding ActivePack.Questions}">
+        <ListBox Grid.Row="1" 
+                 x:Name="textblock" 
+                 Margin="10 0 10 10" 
+                 VerticalAlignment="Stretch" 
+                 ItemsSource="{Binding ActivePack.Questions}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -30,25 +42,33 @@
                             <TextBlock Text="{Binding Query}"/>
                         </StackPanel>
                     </StackPanel>
-                </DataTemplate> 
+                </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
+        <DockPanel HorizontalAlignment="Stretch" Grid.Column="1" Grid.RowSpan="2" Margin="10 10 10 0">
+            <StackPanel >
+                <Label  Content="Question:"/>
+                <TextBox Margin="10 0 10 10" 
+                         Height="100"
+                         Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <StackPanel Grid.Column="1" Grid.Row="1">
-            <Label Margin="10" Padding="0" Content="Question:"/>
-            <TextBox Margin="20,0,20,20" Height="100"/>
+                <Label Margin="20,10,20,0" Padding="0" Content="Correct answer:"/>
+                <TextBox Margin="20,0,20,0" 
+                         Text="{Binding CorrectAnswer, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Margin="20,10,20,0" Padding="0" Content="First incorrect answer:"/>
+                <TextBox Margin="20,0,20,0"
+                         Text="{Binding Answer1, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Margin="20,10,20,0" Padding="0" Content="Second incorrect answer:"/>
+                <TextBox Margin="20,0,20,0"
+                         Text="{Binding Answer2, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Margin="20,10,20,0" Padding="0" Content="Third incorrect answer:"/>
+                <TextBox Margin="20,0,20,0"
+                         Text="{Binding Answer3, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Margin="20" Width="80" Height="20" Content="Save" 
+                        Command="{Binding AddQuestionCommand}"/>
 
-            <Label Margin="20,10,20,0" Padding="0" Content="Correct answer:"/>
-            <TextBox Margin="20,0,20,0"/>
-            <Label Margin="20,10,20,0" Padding="0" Content="First incorrect answer:"/>
-            <TextBox Margin="20,0,20,0"/>
-            <Label Margin="20,10,20,0" Padding="0" Content="Second incorrect answer:"/>
-            <TextBox Margin="20,0,20,0"/>
-            <Label Margin="20,10,20,0" Padding="0" Content="Third incorrect answer:"/>
-            <TextBox Margin="20,0,20,0"/>
-            <Button Margin="20" Width="80" Height="20" Content="Save" Click="Button_Click"/>
-
-        </StackPanel>
+            </StackPanel>
+        </DockPanel>
     </Grid>
 </UserControl>

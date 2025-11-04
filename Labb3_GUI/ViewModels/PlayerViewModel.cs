@@ -1,4 +1,5 @@
 ﻿using Labb3_GUI.Command;
+using Labb3_GUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,8 @@ namespace Labb3_GUI.ViewModels
 
         public DelegateCommand SetPackNameCommand { get; }
         public QuestionPackViewModel? ActivePack { get => _mainWindowViewModel?.ActivePack; }
-        public PlayerViewModel(MainWindowViewModel? mainWindowViewModel)
+
+                public PlayerViewModel(MainWindowViewModel? mainWindowViewModel)
         {
             this._mainWindowViewModel = mainWindowViewModel;
 

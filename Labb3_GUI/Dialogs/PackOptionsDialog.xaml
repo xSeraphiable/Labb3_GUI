@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Labb3_GUI.Dialogs"
         mc:Ignorable="d"
         Title="Pack Options" Height="200" Width="200"
-        Background="DarkGray">
+        Background="DarkGray"
+        DataContext="{Binding MainWindowViewModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
@@ -19,16 +20,18 @@
         <StackPanel Grid.Row="1">
 
             <Label Content="Pack name:" Margin="10,0,0,0" Padding="0" />
-            <TextBox x:Name="packName" Width="180" BorderBrush="Gray" Background="LightGray"/>
+            <TextBox x:Name="packName" Margin="10 0 10 0" Width="180" BorderBrush="Gray" Background="LightGray"/>
 
         </StackPanel>
 
         <StackPanel Grid.Row="2" >
 
             <Label Content="Difficulty:" Margin="10,0,0,0" Padding="0" />
-            <ComboBox x:Name="difficulty" Width="180" BorderBrush="Gray" Background="LightGray" ToolTip="Choose difficulty">
-               <!--Här ska min enum finnas-->
-            </ComboBox>
+            <ComboBox Margin="10 0 10 0"
+                      ToolTip="Choose difficulty"
+                      ItemsSource="{Binding Difficulties}" 
+                      SelectedItem="{Binding SelectedDifficulty, UpdateSourceTrigger=PropertyChanged}" />
+
         </StackPanel>
 
         <StackPanel Grid.Row="3"  >

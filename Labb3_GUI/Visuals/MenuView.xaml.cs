@@ -26,6 +26,7 @@ namespace Labb3_GUI.Visuals
         public MenuView()
         {
             InitializeComponent();
+
         }
 
 
@@ -36,18 +37,19 @@ namespace Labb3_GUI.Visuals
 
             if (dialog.ShowDialog() == true)
             {
-                //TODO: lägg till difficulty (först i createpackdialog och sedan här)
-                var model = new QuestionPack(dialog.PackName, timeLimitInSeconds: dialog.TimeLimit);
 
-                var newPack = new QuestionPackViewModel(model);
+                //TODO: lägg till difficulty (först i createpackdialog och sedan här)
+                //var model = new QuestionPack(dialog.PackName, timeLimitInSeconds: dialog.TimeLimit);
+
+                //var newPack = new QuestionPackViewModel(model);
 
                 
-                if (DataContext is MainWindowViewModel vm)
-                {
-                    vm.Packs.Add(newPack);
+                //if (DataContext is MainWindowViewModel vm)
+                //{
+                //    vm.Packs.Add(newPack);
 
-                    vm.ActivePack = newPack;
-                }
+                //    vm.ActivePack = newPack;
+                //}
             }
 
 

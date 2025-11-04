@@ -7,24 +7,46 @@
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
+             
              >
     <Menu>
-
+   
         <MenuItem Header="_File">
             <MenuItem x:Name="newQuestionPack" Header="_New Question Pack" 
                       Click="newQuestionPack_Click"
-                      
-                      />
-            <MenuItem x:Name="choosePack" Header="_Choose Question Pack"/>
+                      Icon="{fa:Icon folderplus}"
+                                            />
+            <MenuItem x:Name="selectPack" 
+                      Header="_Select Question Pack"
+                      Icon="{fa:Icon folder}"
+                      ItemsSource="{Binding Packs}">
+                <MenuItem.ItemTemplate>
+                    <DataTemplate>
+                        <MenuItem Header="{Binding Name}"
+                      Command="{Binding DataContext.SelectPackCommand,
+                                        RelativeSource={RelativeSource AncestorType=UserControl}}"
+                      CommandParameter="{Binding}" />
+                    </DataTemplate>
+                </MenuItem.ItemTemplate>
+            </MenuItem>
+            
             <Separator/>
+            
             <MenuItem Header="E_xit" Icon="{fa:Icon xmark}"/>
         </MenuItem>
 
         <MenuItem Header="_Edit">
-            <MenuItem Header="A_dd Question" Icon="{fa:Icon plus}"/>
-            <MenuItem Header="_Delete Question" InputGestureText="Ctrl+R" Icon="{fa:Icon minus}"/>
-            <MenuItem Header="Set Pack Name" Command="{Binding PlayerViewModel.SetPackNameCommand}"/>
-            <MenuItem x:Name="EditPack" Header="E_dit Question Pack" Click="EditPack_Click" Icon="{fa:Icon pentosquare}"/>
+            <MenuItem Header="A_dd Question" 
+                      Icon="{fa:Icon plus}"/>
+            <MenuItem Header="_Delete Question" 
+                      InputGestureText="Ctrl+R" 
+                      Icon="{fa:Icon minus}"/>
+            <MenuItem Header="Set Pack Name" 
+                      Command="{Binding PlayerViewModel.SetPackNameCommand}"/>
+            <MenuItem x:Name="EditPack" 
+                      Header="E_dit Question Pack" 
+                      Click="EditPack_Click" 
+                      Icon="{fa:Icon pentosquare}"/>
         </MenuItem>
 
         <MenuItem Header="_View">

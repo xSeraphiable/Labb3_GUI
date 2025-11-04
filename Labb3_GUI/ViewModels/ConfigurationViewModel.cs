@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Labb3_GUI.Command;
+using Labb3_GUI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +15,34 @@ namespace Labb3_GUI.ViewModels
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
         {
             this._mainWindowViewModel = mainWindowViewModel;
+            AddQuestionCommand = new DelegateCommand(CreateQuestion, CanCreateQuestion);
         }
+
+        public DelegateCommand AddQuestionCommand { get; }
+        public string Query { get; set; } = "";
+        public string CorrectAnswer { get; set; } = "";
+        public string Answer1 { get; set; } = "";
+        public string Answer2 { get; set; } = "";
+        public string Answer3 { get; set; } = "";
+
+        public void CreateQuestion(object obj)
+        {
+            var newQuestion = new Question(Query, CorrectAnswer, Answer1, Answer2, Answer3);
+            _mainWindowViewModel?.ActivePack?.Questions.Add(newQuestion);
+
+            Query = Answer1 = Answer2 = Answer3 = CorrectAnswer = string.Empty;
+
+            RaisePropertyChanged(nameof(Query));
+            RaisePropertyChanged(nameof(CorrectAnswer));
+            RaisePropertyChanged(nameof(Answer1));
+            RaisePropertyChanged(nameof(Answer2));
+            RaisePropertyChanged(nameof(Answer3));
+        }
+
+        public bool CanCreateQuestion(object? args)
+        {
+            return true;
+        }
+
     }
 }

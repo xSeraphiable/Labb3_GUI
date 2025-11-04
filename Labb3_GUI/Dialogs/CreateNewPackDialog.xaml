@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Labb3_GUI.Dialogs"
         mc:Ignorable="d"
-        Title="New Question Pack" Height="200" Width="200"
-        Background="DarkGray">
+        Title="New Question Pack" Height="250" Width="200"
+        Background="LightGray"
+        DataContext="{Binding MainWindowViewModel}"
+    >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="10"/>
@@ -19,33 +21,55 @@
         <StackPanel Grid.Row="1">
 
             <Label Content="Pack name:" Margin="10,0,0,0" Padding="0" />
-            <TextBox x:Name="packNameBox" Width="180" BorderBrush="Gray"/>
+            <TextBox 
+                x:Name="packNameBox" 
+                Margin="10 0 10 0" 
+                BorderBrush="Gray" Text="{Binding CreatePackName, UpdateSourceTrigger=PropertyChanged}"/>
 
         </StackPanel>
 
         <StackPanel Grid.Row="2">
 
             <Label Content="Difficulty:" Margin="10,0,0,0" Padding="0" />
-            <ComboBox x:Name="difficulty" Width="180" BorderBrush="Gray" ToolTip="Choose difficulty">
-                <ComboBoxItem Content="Easy"/>
-                <ComboBoxItem Content="Medium"/>
-                <ComboBoxItem Content="Hard"/>
-            </ComboBox>
-            
+            <ComboBox Margin="10 0 10 0"
+                      ToolTip="Choose difficulty"
+                      ItemsSource="{Binding Difficulties}" 
+                      SelectedItem="{Binding SelectedDifficulty, UpdateSourceTrigger=PropertyChanged}"
+                      />
+
         </StackPanel>
 
         <StackPanel Grid.Row="3">
 
-            <Label Content="Time limit:" Margin="10,0,0,0" Padding="0" />
-            <Slider x:Name="TimeLimitSlider" Minimum="10" Maximum="120" TickFrequency="5" Margin="10,0,10,0" TickPlacement="BottomRight"/>
+            <Label Content="Choose time limit:" Margin="10,0,0,0" Padding="0" />
+            <Slider x:Name="TimeLimitSlider"
+                    Minimum="10" 
+                    Maximum="60" 
+                    TickFrequency="5"
+                    IsSnapToTickEnabled="True"
+                    Margin="10,0,10,0" 
+                    TickPlacement="BottomRight"
+                    Value="{Binding CreateTimeLimit, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Margin="10 0 0 0" Text="{Binding ElementName=TimeLimitSlider, Path=Value}"/>
 
         </StackPanel>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
 
-            <Button x:Name="ConfirmButton" Content="Confirm" Margin="8" Padding="5" Click="ConfirmButton_Click"/>
-            <Button x:Name="CancelButton" Content="Cancel" Margin="8" Padding="5" Click="CancelButton_Click"
-                    />
+            <Button 
+                x:Name="ConfirmButton" 
+                Content="Confirm" 
+                Height="25"
+                Margin="8" 
+                Padding="2" 
+                Command="{Binding CreateNewPackCommand}"/>
+            <Button 
+                x:Name="CancelButton" 
+                Height="25"
+                Content="Cancel" 
+                Margin="8" 
+                Padding="2" 
+                Click="CancelButton_Click"/>
 
         </StackPanel>
 

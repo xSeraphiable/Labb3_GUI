@@ -1,4 +1,5 @@
 ﻿using Labb3_GUI.Models;
+using Labb3_GUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,25 +24,11 @@ namespace Labb3_GUI.Dialogs
         public CreateNewPackDialog()
         {
             InitializeComponent();
+            DataContext = ((MainWindow)App.Current.MainWindow).DataContext;
+            (DataContext as MainWindowViewModel).CloseDialog = () => this.Close();
         }
 
-        public string PackName
-        {
-            get => packNameBox.Text;
-            set => packNameBox.Text = value;
-        }
-
-        //public Difficulty difficulty
-        //{
-        //TODO: är det meningen att jag ska göra en converter som tar en string och översätter till difficulty enum?
-        //}
-
-        public int TimeLimit
-        {
-            get => (int)TimeLimitSlider.Value;
-            set => TimeLimitSlider.Value = (int)value;
-        }
-
+        
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
