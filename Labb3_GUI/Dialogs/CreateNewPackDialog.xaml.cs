@@ -29,11 +29,11 @@ namespace Labb3_GUI.Dialogs
         }
 
         
-        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
-            Close();
-        }
+        //private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    DialogResult = true;
+        //    Close();
+        //}
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {

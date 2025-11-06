@@ -88,7 +88,7 @@ namespace Labb3_GUI.ViewModels
 
         public Action CloseDialog;
 
-        public string CreatePackName
+        public string CreatePackName 
         {
             get { return _createPackName; }
             set

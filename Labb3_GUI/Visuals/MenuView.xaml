@@ -32,7 +32,7 @@
             
             <Separator/>
             
-            <MenuItem Header="E_xit" Icon="{fa:Icon xmark}"/>
+            <MenuItem Header="E_xit" Icon="{fa:Icon xmark}" Click="MenuItem_Click"/>
         </MenuItem>
 
         <MenuItem Header="_Edit">
