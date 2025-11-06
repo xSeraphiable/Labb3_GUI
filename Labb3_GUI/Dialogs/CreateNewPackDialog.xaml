@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Labb3_GUI.Dialogs"
         mc:Ignorable="d"
-        Title="New Question Pack" Height="250" Width="200"
+        Title="New Question Pack" Height="280" Width="220"
         Background="LightGray"
         DataContext="{Binding MainWindowViewModel}"
     >
@@ -49,8 +49,11 @@
                     IsSnapToTickEnabled="True"
                     Margin="10,0,10,0" 
                     TickPlacement="BottomRight"
-                    Value="{Binding CreateTimeLimit, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock Margin="10 0 0 0" Text="{Binding ElementName=TimeLimitSlider, Path=Value}"/>
+                    Value="{Binding CreateTimeLimit, UpdateSourceTrigger=PropertyChanged}"
+                    AutoToolTipPlacement="TopLeft"
+                    AutoToolTipPrecision="0"
+                     />
+            <!--<TextBlock Margin="10 0 0 0" Text="{Binding ElementName=TimeLimitSlider, Path=Value}"/>-->
 
         </StackPanel>
 

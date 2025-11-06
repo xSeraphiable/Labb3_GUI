@@ -69,3 +69,4 @@ namespace Labb3_GUI.Visuals
     }
 
 }
+ 
