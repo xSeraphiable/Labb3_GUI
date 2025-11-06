@@ -10,6 +10,30 @@ namespace Labb3_GUI.ViewModels
 {
     internal class ConfigurationViewModel : ViewModelBase
     {
+        private Question _selectedQuestion;
+
+        public Question SelectedQuestion
+        {
+            get => _selectedQuestion;
+            set
+            {
+                _selectedQuestion = value;
+                if (value != null)
+                {
+                    Query = value.Query;
+                    CorrectAnswer = value.CorrectAnswer;
+                    if (value.IncorrectAnswers.Length >= 3)
+                    {
+                        Answer1 = value.IncorrectAnswers[0];
+                        Answer2 = value.IncorrectAnswers[1];
+                        Answer3 = value.IncorrectAnswers[2];
+                    }
+                }
+                RaisePropertyChanged();
+            }
+        }
+
+
         private readonly MainWindowViewModel? _mainWindowViewModel;
         public QuestionPackViewModel? ActivePack { get => _mainWindowViewModel?.ActivePack; }
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)

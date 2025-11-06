@@ -33,7 +33,8 @@
                  x:Name="textblock" 
                  Margin="10 0 10 10" 
                  VerticalAlignment="Stretch" 
-                 ItemsSource="{Binding ActivePack.Questions}">
+                 ItemsSource="{Binding ActivePack.Questions}"
+                 SelectedItem="{Binding SelectedQuestion}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -51,20 +52,20 @@
                 <Label  Content="Question:"/>
                 <TextBox Margin="10 0 10 10" 
                          Height="100"
-                         Text="{Binding Query, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding SelectedQuestion.Query, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Margin="20,10,20,0" Padding="0" Content="Correct answer:"/>
                 <TextBox Margin="20,0,20,0" 
-                         Text="{Binding CorrectAnswer, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding SelectedQuestion.CorrectAnswer, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Margin="20,10,20,0" Padding="0" Content="First incorrect answer:"/>
                 <TextBox Margin="20,0,20,0"
-                         Text="{Binding Answer1, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding SelectedQuestion.IncorrectAnswers[0], UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Margin="20,10,20,0" Padding="0" Content="Second incorrect answer:"/>
                 <TextBox Margin="20,0,20,0"
-                         Text="{Binding Answer2, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding SelectedQuestion.IncorrectAnswers[1], UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Margin="20,10,20,0" Padding="0" Content="Third incorrect answer:"/>
                 <TextBox Margin="20,0,20,0"
-                         Text="{Binding Answer3, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding SelectedQuestion.IncorrectAnswers[2], UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Margin="20" Width="80" Height="20" Content="Save" 
                         Command="{Binding AddQuestionCommand}"/>
 
