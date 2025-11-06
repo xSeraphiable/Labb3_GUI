@@ -23,7 +23,7 @@
             <Label Content="{Binding ActivePack.Name}"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Margin="2 2 2 0" Height="18" Width="18" Content="{fa:Icon Plus}"/>
-                <Button Margin="2 2 2 0" Height="18" Width="18" Content="{fa:Icon Minus}"/>
+                <Button Margin="2 2 2 0" Height="18" Width="18" Content="{fa:Icon Minus}" Command="{Binding DeleteQuestionCommand}"/>
                 <Button Margin="2 2 2 0" Height="18" Width="18" Content="{fa:Icon pentosquare}"/>
             </StackPanel>
         </DockPanel>
