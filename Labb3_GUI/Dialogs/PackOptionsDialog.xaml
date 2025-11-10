@@ -20,7 +20,12 @@
         <StackPanel Grid.Row="1">
 
             <Label Content="Pack name:" Margin="10,0,0,0" Padding="0" />
-            <TextBox x:Name="packName" Margin="10 0 10 0" Width="180" BorderBrush="Gray" Background="LightGray"/>
+            <TextBox x:Name="packName" 
+                     Margin="10 0 10 0" 
+                     Width="180" 
+                     BorderBrush="Gray" 
+                     Background="LightGray"
+                     Text="{Binding ActivePack.Name, UpdateSourceTrigger=PropertyChanged}"/>
 
         </StackPanel>
 
@@ -29,7 +34,7 @@
             <Label Content="Difficulty:" Margin="10,0,0,0" Padding="0" />
             <ComboBox Margin="10 0 10 0"
                       ToolTip="Choose difficulty"
-                      ItemsSource="{Binding Difficulties}" 
+                      ItemsSource="{Binding Difficulties}"
                       SelectedItem="{Binding SelectedDifficulty, UpdateSourceTrigger=PropertyChanged}" />
 
         </StackPanel>
@@ -37,7 +42,13 @@
         <StackPanel Grid.Row="3"  >
 
             <Label Content="Time limit:" Margin="10,0,0,0" Padding="0" />
-            <Slider Foreground="LightGray" Minimum="10" Maximum="120" TickFrequency="5" Margin="10,0,10,0" TickPlacement="BottomRight"/>
+            <Slider Foreground="LightGray" 
+                    Minimum="10" 
+                    Maximum="120" 
+                    TickFrequency="5" 
+                    Margin="10,0,10,0" 
+                    TickPlacement="BottomRight"
+                    Value="{Binding ActivePack.TimeLimitsInSeconds, UpdateSourceTrigger=PropertyChanged}"/>
 
         </StackPanel>
 

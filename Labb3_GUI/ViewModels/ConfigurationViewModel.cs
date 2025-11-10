@@ -10,86 +10,128 @@ namespace Labb3_GUI.ViewModels
 {
     internal class ConfigurationViewModel : ViewModelBase
     {
-        private Question _selectedQuestion;
+        private readonly MainWindowViewModel? _mainWindowViewModel;
+        public QuestionPackViewModel? ActivePack { get => _mainWindowViewModel?.ActivePack; }
+        public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
+        {
+            this._mainWindowViewModel = mainWindowViewModel;
+            SaveQuestionCommand = new DelegateCommand(SaveQuestion, CanSaveQuestion);
+            DeleteQuestionCommand = new DelegateCommand(DeleteQuestion, CanDeleteQuestion);
+            NewQuestionCommand = new DelegateCommand(_ => StartNewQuestion());
 
+            if (_mainWindowViewModel != null)
+            {
+                _mainWindowViewModel.PropertyChanged += (s, e) =>
+                {
+                    if (e.PropertyName == nameof(_mainWindowViewModel.ActivePack))
+                    {
+                        RaisePropertyChanged(nameof(ActivePack));
+                        RaisePropertyChanged(nameof(ActivePack.Questions));
+                    }
+                };
+            }
+
+        }
+        public bool IsEditingQuestion => EditableQuestion != null;
+        
+        public DelegateCommand NewQuestionCommand { get; }
+        public DelegateCommand SaveQuestionCommand { get; }
+        public DelegateCommand DeleteQuestionCommand { get; }
+
+
+        private Question _editableQuestion;
+        public Question EditableQuestion
+        {
+            get => _editableQuestion;
+            set
+            {
+                _editableQuestion = value;
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsEditingQuestion));
+            }
+        }
+
+        private Question _selectedQuestion;
         public Question SelectedQuestion
         {
             get => _selectedQuestion;
             set
             {
                 _selectedQuestion = value;
+                RaisePropertyChanged();
+
                 if (value != null)
                 {
-                    Query = value.Query;
-                    CorrectAnswer = value.CorrectAnswer;
-                    if (value.IncorrectAnswers.Length >= 3)
-                    {
-                        Answer1 = value.IncorrectAnswers[0];
-                        Answer2 = value.IncorrectAnswers[1];
-                        Answer3 = value.IncorrectAnswers[2];
-                    }
+                    EditableQuestion = new Question(
+                        value.Query,
+                        value.CorrectAnswer,
+                        value.IncorrectAnswers[0],
+                        value.IncorrectAnswers[1],
+                        value.IncorrectAnswers[2]);
                 }
-                RaisePropertyChanged();
+                else
+                {
+                    EditableQuestion = null;
+                }
+
                 DeleteQuestionCommand.RaiseCanExecuteChanged();
+                SaveQuestionCommand.RaiseCanExecuteChanged();
             }
         }
 
 
-        private readonly MainWindowViewModel? _mainWindowViewModel;
-        public QuestionPackViewModel? ActivePack { get => _mainWindowViewModel?.ActivePack; }
-        public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
-        {
-            this._mainWindowViewModel = mainWindowViewModel;
-            AddQuestionCommand = new DelegateCommand(CreateQuestion, CanCreateQuestion);
-            DeleteQuestionCommand = new DelegateCommand(DeleteQuestion, CanDeleteQuestion);
-        }
-
-        public DelegateCommand AddQuestionCommand { get; }
-        public DelegateCommand DeleteQuestionCommand { get; }
-        public string Query { get; set; } = "";
-        public string CorrectAnswer { get; set; } = "";
-        public string Answer1 { get; set; } = "";
-        public string Answer2 { get; set; } = "";
-        public string Answer3 { get; set; } = "";
-
         public void DeleteQuestion(object obj)
         {
-            _mainWindowViewModel?.ActivePack?.Questions.Remove(SelectedQuestion);
+            var pack = ActivePack;
+            if (pack == null || SelectedQuestion == null)
+                return;
+
+            pack.Questions.Remove(SelectedQuestion);
 
             SelectedQuestion = null;
-            Query = Answer1 = Answer2 = Answer3 = CorrectAnswer = string.Empty;
-
-            RaisePropertyChanged(nameof(Query));
-            RaisePropertyChanged(nameof(CorrectAnswer));
-            RaisePropertyChanged(nameof(Answer1));
-            RaisePropertyChanged(nameof(Answer2));
-            RaisePropertyChanged(nameof(Answer3));
+            EditableQuestion = null;
+                       
         }
+
         public bool CanDeleteQuestion(object? args)
         {
             return SelectedQuestion != null;
-
         }
 
-
-        public void CreateQuestion(object obj)
+        private void StartNewQuestion()
         {
-            var newQuestion = new Question(Query, CorrectAnswer, Answer1, Answer2, Answer3);
-            _mainWindowViewModel?.ActivePack?.Questions.Add(newQuestion);
-
-            Query = Answer1 = Answer2 = Answer3 = CorrectAnswer = string.Empty;
-
-            RaisePropertyChanged(nameof(Query));
-            RaisePropertyChanged(nameof(CorrectAnswer));
-            RaisePropertyChanged(nameof(Answer1));
-            RaisePropertyChanged(nameof(Answer2));
-            RaisePropertyChanged(nameof(Answer3));
+            SelectedQuestion = null;
+            EditableQuestion = new Question("", "", "", "", "");
         }
 
-        public bool CanCreateQuestion(object? args)
+
+        public void SaveQuestion(object obj)
         {
-            return true;
+            var pack = _mainWindowViewModel?.ActivePack;
+            if (pack == null || EditableQuestion == null) return;
+
+            if (SelectedQuestion != null)
+            {
+                SelectedQuestion.Query = EditableQuestion.Query;
+                SelectedQuestion.CorrectAnswer = EditableQuestion.CorrectAnswer;
+                SelectedQuestion.IncorrectAnswers = EditableQuestion.IncorrectAnswers.ToArray();
+            }
+            else
+            {
+                pack.Questions.Add(new Question(
+                EditableQuestion.Query,
+                EditableQuestion.CorrectAnswer,
+                EditableQuestion.IncorrectAnswers.ToArray()));
+            }
+
+
+            EditableQuestion = null;
+            SelectedQuestion = null;
+            
         }
+
+        public bool CanSaveQuestion(object? args) => true;
+
 
     }
 }

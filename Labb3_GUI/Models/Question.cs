@@ -15,6 +15,12 @@ class Question
         CorrectAnswer = correctAnswer;
         IncorrectAnswers = new string[3] { incorrectAnswer1, incorrectAnswer2, incorrectAnswer3 };
     }
+    public Question(string query, string correctAnswer, string[] incorrectAnswers)
+    {
+        Query = query;
+        CorrectAnswer = correctAnswer;
+        IncorrectAnswers = incorrectAnswers;
+    }
     public string Query { get; set; }
 
     public string CorrectAnswer { get; set; }

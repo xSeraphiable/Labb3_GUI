@@ -9,6 +9,10 @@
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding ConfigurationViewModel}"
              >
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -22,19 +26,34 @@
         <DockPanel HorizontalAlignment="Stretch" Margin="10 10 10 0">
             <Label Content="{Binding ActivePack.Name}"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Margin="2 2 2 0" Height="18" Width="18" Content="{fa:Icon Plus}"/>
-                <Button Margin="2 2 2 0" Height="18" Width="18" Content="{fa:Icon Minus}" Command="{Binding DeleteQuestionCommand}"/>
-                <Button Margin="2 2 2 0" Height="18" Width="18" Content="{fa:Icon pentosquare}"/>
+                <Button Margin="2 2 2 0" 
+                        Height="18" 
+                        Width="18" 
+                        Content="{fa:Icon Plus}" 
+                        Command="{Binding NewQuestionCommand}"
+                        ToolTip="Add new question"/>
+                <Button Margin="2 2 2 0" 
+                        Height="18" 
+                        Width="18" 
+                        Content="{fa:Icon Minus}" 
+                        Command="{Binding DeleteQuestionCommand}"
+                        ToolTip="Delete question"/>
+                <Button Margin="2 2 2 0" 
+                        Height="18" 
+                        Width="18" 
+                        Content="{fa:Icon pentosquare}"
+                        ToolTip="Edit Question Pack"/>
             </StackPanel>
         </DockPanel>
-        <StackPanel Grid.Column="0" Grid.Row="0">
-        </StackPanel>
+        <!--<StackPanel Grid.Column="0" 
+                    Grid.Row="0">
+        </StackPanel>-->
         <ListBox Grid.Row="1" 
                  x:Name="textblock" 
                  Margin="10 0 10 10" 
                  VerticalAlignment="Stretch" 
                  ItemsSource="{Binding ActivePack.Questions}"
-                 SelectedItem="{Binding SelectedQuestion}">
+                 SelectedItem="{Binding SelectedQuestion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -48,26 +67,29 @@
         </ListBox>
 
         <DockPanel HorizontalAlignment="Stretch" Grid.Column="1" Grid.RowSpan="2" Margin="10 10 10 0">
-            <StackPanel >
+            <StackPanel Visibility="{Binding IsEditingQuestion, Converter={StaticResource BoolToVis}, UpdateSourceTrigger=PropertyChanged}">
                 <Label  Content="Question:"/>
                 <TextBox Margin="10 0 10 10" 
                          Height="100"
-                         Text="{Binding SelectedQuestion.Query, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding EditableQuestion.Query, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Label Margin="20,10,20,0" Padding="0" Content="Correct answer:"/>
                 <TextBox Margin="20,0,20,0" 
-                         Text="{Binding SelectedQuestion.CorrectAnswer, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding EditableQuestion.CorrectAnswer, UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Margin="20,10,20,0" Padding="0" Content="First incorrect answer:"/>
                 <TextBox Margin="20,0,20,0"
-                         Text="{Binding SelectedQuestion.IncorrectAnswers[0], UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding EditableQuestion.IncorrectAnswers[0], UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Margin="20,10,20,0" Padding="0" Content="Second incorrect answer:"/>
                 <TextBox Margin="20,0,20,0"
-                         Text="{Binding SelectedQuestion.IncorrectAnswers[1], UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding EditableQuestion.IncorrectAnswers[1], UpdateSourceTrigger=PropertyChanged}"/>
                 <Label Margin="20,10,20,0" Padding="0" Content="Third incorrect answer:"/>
                 <TextBox Margin="20,0,20,0"
-                         Text="{Binding SelectedQuestion.IncorrectAnswers[2], UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Margin="20" Width="80" Height="20" Content="Save" 
-                        Command="{Binding AddQuestionCommand}"/>
+                         Text="{Binding EditableQuestion.IncorrectAnswers[2], UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Margin="20" 
+                        Width="80" 
+                        Height="20" 
+                        Content="Save" 
+                        Command="{Binding SaveQuestionCommand}"/>
 
             </StackPanel>
         </DockPanel>

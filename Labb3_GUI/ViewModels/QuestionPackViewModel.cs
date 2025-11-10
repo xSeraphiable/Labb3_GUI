@@ -38,7 +38,18 @@ internal class QuestionPackViewModel : ViewModelBase
 
     }
 
-    public ObservableCollection<Question> Questions { get; set; }
+    private ObservableCollection<Question> _questions;
+
+    public ObservableCollection<Question> Questions
+    {
+        get => _questions;
+        set
+        {
+            _questions = value;
+            RaisePropertyChanged();
+        }
+    }
+
 
     public string Name
     {

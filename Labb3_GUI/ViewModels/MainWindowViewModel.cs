@@ -13,17 +13,14 @@ namespace Labb3_GUI.ViewModels
     {
         public ObservableCollection<QuestionPackViewModel> Packs { get; } = new();
 
-        private QuestionPackViewModel _activePack;
 
-        public DelegateCommand SelectPackCommand { get; }
-
-  
         private void SelectPack(object? parameter)
         {
             if (parameter is QuestionPackViewModel pack)
                 ActivePack = pack;
         }
 
+        private QuestionPackViewModel _activePack;
         public QuestionPackViewModel ActivePack
         {
             get => _activePack;
@@ -38,8 +35,6 @@ namespace Labb3_GUI.ViewModels
 
         public PlayerViewModel? PlayerViewModel { get; }
         public ConfigurationViewModel? ConfigurationViewModel { get; }
-
-        public DelegateCommand CreateNewPackCommand { get; }
 
 
         public ObservableCollection<Difficulty> Difficulties { get; } = new ObservableCollection<Difficulty>(new List<Difficulty>()
@@ -72,8 +67,11 @@ namespace Labb3_GUI.ViewModels
 
         }
 
-        private Difficulty _selectedDifficulty;
+        public DelegateCommand SelectPackCommand { get; }
+        public DelegateCommand CreateNewPackCommand { get; }
 
+
+        private Difficulty _selectedDifficulty;
         public Difficulty SelectedDifficulty
         {
             get => _selectedDifficulty;
@@ -88,7 +86,7 @@ namespace Labb3_GUI.ViewModels
 
         public Action CloseDialog;
 
-        public string CreatePackName 
+        public string CreatePackName
         {
             get { return _createPackName; }
             set
@@ -122,7 +120,7 @@ namespace Labb3_GUI.ViewModels
         private void CreatePack(object obj)
         {
             var newPack = new QuestionPackViewModel(new QuestionPack(CreatePackName, SelectedDifficulty, CreateTimeLimit));
-            
+
             Packs.Add(newPack);
             ActivePack = newPack;
 

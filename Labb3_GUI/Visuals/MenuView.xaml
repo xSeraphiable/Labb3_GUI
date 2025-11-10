@@ -37,10 +37,13 @@
 
         <MenuItem Header="_Edit">
             <MenuItem Header="A_dd Question" 
-                      Icon="{fa:Icon plus}"/>
+                      Icon="{fa:Icon plus}"
+                      Command="{Binding ConfigurationViewModel.NewQuestionCommand}"
+                      />
             <MenuItem Header="_Delete Question" 
                       InputGestureText="Ctrl+R" 
-                      Icon="{fa:Icon minus}"/>
+                      Icon="{fa:Icon minus}"
+                      Command="{Binding ConfigurationViewModel.DeleteQuestionCommand}"/>
             <MenuItem Header="Set Pack Name" 
                       Command="{Binding PlayerViewModel.SetPackNameCommand}"/>
             <MenuItem x:Name="EditPack" 
