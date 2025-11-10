@@ -25,6 +25,7 @@ namespace Labb3_GUI.Dialogs
         {
             InitializeComponent();
             DataContext = ((MainWindow)App.Current.MainWindow).DataContext;
+            (DataContext as MainWindowViewModel).OpenDialog = () => this.ShowDialog();
             (DataContext as MainWindowViewModel).CloseDialog = () => this.Close();
         }
 

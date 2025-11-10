@@ -13,8 +13,8 @@
    
         <MenuItem Header="_File">
             <MenuItem x:Name="newQuestionPack" Header="_New Question Pack" 
-                      Click="newQuestionPack_Click"
                       Icon="{fa:Icon folderplus}"
+                      Command="{Binding CreateNewPackCommand}"
                                             />
             <MenuItem x:Name="selectPack" 
                       Header="_Select Question Pack"

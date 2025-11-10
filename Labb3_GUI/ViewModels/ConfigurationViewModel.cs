@@ -15,9 +15,8 @@ namespace Labb3_GUI.ViewModels
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
         {
             this._mainWindowViewModel = mainWindowViewModel;
-            SaveQuestionCommand = new DelegateCommand(SaveQuestion, CanSaveQuestion);
             DeleteQuestionCommand = new DelegateCommand(DeleteQuestion, CanDeleteQuestion);
-            NewQuestionCommand = new DelegateCommand(_ => StartNewQuestion());
+            NewQuestionCommand = new DelegateCommand(_ =>CreateNewQuestion());
 
             if (_mainWindowViewModel != null)
             {
@@ -32,24 +31,13 @@ namespace Labb3_GUI.ViewModels
             }
 
         }
-        public bool IsEditingQuestion => EditableQuestion != null;
-        
+        public bool IsEditingQuestion => SelectedQuestion != null;
+
+
         public DelegateCommand NewQuestionCommand { get; }
-        public DelegateCommand SaveQuestionCommand { get; }
         public DelegateCommand DeleteQuestionCommand { get; }
 
 
-        private Question _editableQuestion;
-        public Question EditableQuestion
-        {
-            get => _editableQuestion;
-            set
-            {
-                _editableQuestion = value;
-                RaisePropertyChanged();
-                RaisePropertyChanged(nameof(IsEditingQuestion));
-            }
-        }
 
         private Question _selectedQuestion;
         public Question SelectedQuestion
@@ -60,25 +48,10 @@ namespace Labb3_GUI.ViewModels
                 _selectedQuestion = value;
                 RaisePropertyChanged();
 
-                if (value != null)
-                {
-                    EditableQuestion = new Question(
-                        value.Query,
-                        value.CorrectAnswer,
-                        value.IncorrectAnswers[0],
-                        value.IncorrectAnswers[1],
-                        value.IncorrectAnswers[2]);
-                }
-                else
-                {
-                    EditableQuestion = null;
-                }
-
                 DeleteQuestionCommand.RaiseCanExecuteChanged();
-                SaveQuestionCommand.RaiseCanExecuteChanged();
+                               
             }
         }
-
 
         public void DeleteQuestion(object obj)
         {
@@ -89,8 +62,7 @@ namespace Labb3_GUI.ViewModels
             pack.Questions.Remove(SelectedQuestion);
 
             SelectedQuestion = null;
-            EditableQuestion = null;
-                       
+
         }
 
         public bool CanDeleteQuestion(object? args)
@@ -98,40 +70,17 @@ namespace Labb3_GUI.ViewModels
             return SelectedQuestion != null;
         }
 
-        private void StartNewQuestion()
+        private void CreateNewQuestion()
         {
-            SelectedQuestion = null;
-            EditableQuestion = new Question("", "", "", "", "");
+            var pack = ActivePack;
+        
+            SelectedQuestion = new Question("");
+
+            pack.Questions.Add(SelectedQuestion);
+
+            _mainWindowViewModel?.SavePacksToJason();
+
         }
-
-
-        public void SaveQuestion(object obj)
-        {
-            var pack = _mainWindowViewModel?.ActivePack;
-            if (pack == null || EditableQuestion == null) return;
-
-            if (SelectedQuestion != null)
-            {
-                SelectedQuestion.Query = EditableQuestion.Query;
-                SelectedQuestion.CorrectAnswer = EditableQuestion.CorrectAnswer;
-                SelectedQuestion.IncorrectAnswers = EditableQuestion.IncorrectAnswers.ToArray();
-            }
-            else
-            {
-                pack.Questions.Add(new Question(
-                EditableQuestion.Query,
-                EditableQuestion.CorrectAnswer,
-                EditableQuestion.IncorrectAnswers.ToArray()));
-            }
-
-
-            EditableQuestion = null;
-            SelectedQuestion = null;
-            
-        }
-
-        public bool CanSaveQuestion(object? args) => true;
-
 
     }
 }
