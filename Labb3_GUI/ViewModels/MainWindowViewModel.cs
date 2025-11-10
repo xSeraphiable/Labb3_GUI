@@ -1,4 +1,5 @@
 ﻿using Labb3_GUI.Command;
+using Labb3_GUI.Data;
 using Labb3_GUI.Dialogs;
 using Labb3_GUI.Models;
 using System;
@@ -16,92 +17,33 @@ namespace Labb3_GUI.ViewModels
 {
     class MainWindowViewModel : ViewModelBase
     {
+        private readonly JsonPackService jsonService;
         public MainWindowViewModel()
         {
-            GetPath();
-            GetPacksFromJson();
+            jsonService = new JsonPackService();
 
+            var loadedPacks = jsonService.LoadPacks();
 
-            Packs = new ObservableCollection<QuestionPackViewModel>();
+            Packs = new ObservableCollection<QuestionPackViewModel>(loadedPacks.Select(p => new QuestionPackViewModel(p)));
+
             SelectedDifficulty = Difficulties[1];
-
-            SelectPackCommand = new DelegateCommand(SelectPack);
             PlayerViewModel = new PlayerViewModel(this);
             ConfigurationViewModel = new ConfigurationViewModel(this);
+
+            SelectPackCommand = new DelegateCommand(SelectPack);
             OpenCreatePackCommand = new DelegateCommand(OpenCreatePack, CanOpenCreatePack);
             SaveNewPackCommand = new DelegateCommand(SaveNewPack);
+            ExitCommand = new DelegateCommand(ExitApp);
 
-            var demoPack = new QuestionPackViewModel(new QuestionPack("My Question Pack"));
-            demoPack.Questions.Add(new Question("Vad är 1 + 1?", "2", "5", "1", "11"));
-            demoPack.Questions.Add(new Question("Vad heter Japans huvudstad?", "Tokyo", "Tuoku", "Okinawa", "Sapporo"));
-            Packs.Add(demoPack);
-            ActivePack = demoPack;
-
-        }
-
-        private string packPath;
-        private void GetPath()
-        {
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            packPath = path + "/questionpack.json";
-
-        }
-
-        private void GetPacksFromJson()
-        {
-
-
-            if (File.Exists(packPath))
-            {
-                var json = File.ReadAllText(packPath);
-                var options = new JsonSerializerOptions()
-                {
-                    UnmappedMemberHandling = JsonUnmappedMemberHandling.Skip
-                };
-
-                var data = JsonSerializer.Deserialize<List<QuestionPackViewModel>>(json, options);
-
-                foreach (var q in data)
-                {
-                    Packs.Add(q);
-                }
-            }
-
-            else
-            {
-                File.Create(packPath).Dispose();
-            }
-
-
-
-            //Deserialize filen
-            //Lägg till i Packs
-
-        }
-
-        public void SavePacksToJason()
-        {
-
-            var options = new JsonSerializerOptions()
-            {
-                WriteIndented = true,
-                //IncludeFields = true,
-                //IgnoreReadOnlyProperties = true,
-                //ReferenceHandler = ReferenceHandler.Preserve
-            };
-
-            var json = JsonSerializer.Serialize(Packs, options);
-
-            //gör
-
-            File.WriteAllText(packPath, json);
-
-            //töm json
-            //serialize
-            //spara ny
         }
 
         public ObservableCollection<QuestionPackViewModel> Packs { get; } = new();
+
+        public void SavePacksToJson()
+        {
+            var models = Packs.Select(p => p.Pack).ToList();
+            jsonService.SavePacks(models);
+        }
 
         private QuestionPackViewModel _activePack;
         public QuestionPackViewModel ActivePack
@@ -132,9 +74,11 @@ namespace Labb3_GUI.ViewModels
         public DelegateCommand SelectPackCommand { get; }
         public DelegateCommand OpenCreatePackCommand { get; }
         public DelegateCommand SaveNewPackCommand { get; }
+        public DelegateCommand ExitCommand { get; }
 
         public Action CloseDialog;
         public Action OpenDialog;
+
 
         private Difficulty _selectedDifficulty;
         public Difficulty SelectedDifficulty
@@ -147,9 +91,25 @@ namespace Labb3_GUI.ViewModels
             }
         }
 
+        private void ExitApp(object? args)
+        {
+            try
+            {
+                SavePacksToJson();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Kunde inte spara: " + ex.Message);
+            }
+
+            System.Windows.Application.Current.Shutdown();
+        }
+
         private void SaveNewPack(object? args)
         {
             Packs.Add(ActivePack);
+            SavePacksToJson();
 
             CloseDialog?.Invoke();
         }
@@ -167,8 +127,6 @@ namespace Labb3_GUI.ViewModels
 
             var dialog = new CreateNewPackDialog();
             OpenDialog?.Invoke();
-
-
 
         }
 

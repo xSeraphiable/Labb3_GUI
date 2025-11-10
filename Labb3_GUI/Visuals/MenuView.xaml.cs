@@ -29,27 +29,6 @@ namespace Labb3_GUI.Visuals
 
         }
 
-
-
-        private void newQuestionPack_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new CreateNewPackDialog();
-
-            dialog.ShowDialog();
-
-        }
-
-        private void EditPack_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new PackOptionsDialog();
-
-            dialog.ShowDialog();
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
     }
 
 }

@@ -9,6 +9,13 @@
         Title="MainWindow" Height="500" Width="600"
         MinHeight="500"
         MinWidth="600">
+
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Control" Command="{Binding OpenCreatePackCommand}" />
+        <KeyBinding Key="O" Modifiers="Control" Command="{Binding OpenPackCommand}" />
+        <KeyBinding Key="Q" Modifiers="Control" Command="{Binding ExitCommand}" />
+    </Window.InputBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

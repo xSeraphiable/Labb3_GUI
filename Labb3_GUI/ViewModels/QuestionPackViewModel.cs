@@ -38,10 +38,11 @@ internal class QuestionPackViewModel : ViewModelBase
 
     }
 
-    private ObservableCollection<Question> _questions;
+    public QuestionPack Pack => _model;
 
+    private ObservableCollection<Question> _questions;
     public ObservableCollection<Question> Questions
-    {
+    {  
         get => _questions;
         set
         {

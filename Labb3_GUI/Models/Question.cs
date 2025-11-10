@@ -21,6 +21,7 @@ class Question
         CorrectAnswer = correctAnswer;
         IncorrectAnswers = incorrectAnswers;
     }
+    public Question() { }
     public string Query { get; set; }
 
     public string CorrectAnswer { get; set; }

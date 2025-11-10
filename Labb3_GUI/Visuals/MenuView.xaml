@@ -6,15 +6,14 @@
              xmlns:local="clr-namespace:Labb3_GUI.Visuals"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             
+             d:DesignHeight="450" d:DesignWidth="800"             
              >
     <Menu>
    
         <MenuItem Header="_File">
             <MenuItem x:Name="newQuestionPack" Header="_New Question Pack" 
                       Icon="{fa:Icon folderplus}"
-                      Command="{Binding CreateNewPackCommand}"
+                      Command="{Binding OpenCreatePackCommand}"
                                             />
             <MenuItem x:Name="selectPack" 
                       Header="_Select Question Pack"
@@ -32,7 +31,8 @@
             
             <Separator/>
             
-            <MenuItem Header="E_xit" Icon="{fa:Icon xmark}" Click="MenuItem_Click"/>
+            <MenuItem Header="E_xit" Icon="{fa:Icon xmark}" 
+                      Command="{Binding ExitCommand}"/>
         </MenuItem>
 
         <MenuItem Header="_Edit">
@@ -48,7 +48,6 @@
                       Command="{Binding PlayerViewModel.SetPackNameCommand}"/>
             <MenuItem x:Name="EditPack" 
                       Header="E_dit Question Pack" 
-                      Click="EditPack_Click" 
                       Icon="{fa:Icon pentosquare}"/>
         </MenuItem>
 

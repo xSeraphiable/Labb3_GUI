@@ -31,6 +31,7 @@ namespace Labb3_GUI.ViewModels
             }
 
         }
+
         public bool IsEditingQuestion => SelectedQuestion != null;
 
 
@@ -78,7 +79,7 @@ namespace Labb3_GUI.ViewModels
 
             pack.Questions.Add(SelectedQuestion);
 
-            _mainWindowViewModel?.SavePacksToJason();
+            _mainWindowViewModel.SavePacksToJson();
 
         }
 
