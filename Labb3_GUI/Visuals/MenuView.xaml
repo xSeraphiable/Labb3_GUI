@@ -58,7 +58,8 @@
         </MenuItem>
 
         <MenuItem Header="_View">
-            <MenuItem Header="Play" Icon="{fa:Icon play}"/>
+            <MenuItem Header="Play" Icon="{fa:Icon play}" Command="{Binding ShowPlayerViewCommand}"/>
+            <MenuItem Header="Edit" Icon="{fa:Icon play}" Command="{Binding ShowConfigViewCommand}"/>
         </MenuItem>
 
     </Menu>

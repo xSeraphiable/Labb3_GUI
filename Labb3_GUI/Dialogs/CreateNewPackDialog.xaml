@@ -66,14 +66,14 @@
                 Content="Confirm" 
                 Height="25"
                 Margin="8" 
-                Padding="2" 
+                
                 Command="{Binding SaveNewPackCommand}"/>
             <Button 
                 x:Name="CancelButton" 
                 Height="25"
                 Content="Cancel" 
                 Margin="8" 
-                Padding="2" 
+                
                 Click="CancelButton_Click"/>
 
         </StackPanel>

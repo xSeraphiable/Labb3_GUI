@@ -6,25 +6,56 @@
              xmlns:local="clr-namespace:Labb3_GUI.Visuals"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             DataContext="{Binding PlayerViewModel}"
              Background="{StaticResource BackgroundBrush}">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Content="Fråga" Margin="10" HorizontalAlignment="Center"/>
-        <TextBlock Grid.Row="0" Margin="20" HorizontalAlignment="Center" Text="{Binding ActivePack.Name}"/>
-        <StackPanel Grid.Row="1">
-            <Button HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    Margin="25"
-                    Background="Gainsboro"
-                    Content="Svar 1"/>
 
-
-
+        <StackPanel>
+            
+        <Label Content="Quiz" FontSize="24" Margin="10" HorizontalAlignment="Center"/>
+        <TextBlock Text="x / x questions answered" Margin="5" HorizontalAlignment="Center"/>
+            
         </StackPanel>
+        
+        <TextBlock Grid.Row="1" Margin="20" HorizontalAlignment="Center" Text="{Binding ActivePack.Questions[0].Query}"/>
+        <TextBlock Grid.Row="1" Margin="20" HorizontalAlignment="Right" Text="{Binding ActivePack.TimeLimitInSeconds}"/>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button HorizontalAlignment="Center" 
+                    VerticalAlignment="Bottom"
+                    Margin="25"
+                    Height="75"
+                    Width="100"
+                    Content="{Binding ActivePack.Questions[0].CorrectAnswer}"
+                    />
+            <Button HorizontalAlignment="Center" 
+                    VerticalAlignment="Bottom"
+                    Margin="25"
+                    Height="75"
+                    Width="100"
+                    Content="Svar 1"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button HorizontalAlignment="Center" 
+            VerticalAlignment="Top"
+            Margin="25"
+            Height="75"
+            Width="100"
+            Content="Svar 1"/>
+            <Button HorizontalAlignment="Center" 
+            VerticalAlignment="Top"
+            Margin="25"
+            Height="75"
+            Width="100"
+            Content="Svar 1"/>
+        </StackPanel>
+        
     </Grid>
 </UserControl>

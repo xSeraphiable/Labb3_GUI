@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="600"
         MinHeight="500"
-        MinWidth="600">
+        MinWidth="600"
+        Background="{StaticResource BackgroundBrush}">
    
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Control" Command="{Binding OpenCreatePackCommand}" />
@@ -23,8 +24,9 @@
         </Grid.RowDefinitions>
 
         <views:MenuView Grid.Row="0"/>
+        <ContentControl Grid.Row="1" Content="{Binding CurrentView}" />
         <!--<views:PlayerView Grid.Row="1"/>-->
-        <views:ConfigurationView Grid.Row="1"/>
+        <!--<views:ConfigurationView Grid.Row="1"/>-->
 
     </Grid>
 </Window>

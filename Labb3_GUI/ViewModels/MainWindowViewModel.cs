@@ -2,6 +2,7 @@
 using Labb3_GUI.Data;
 using Labb3_GUI.Dialogs;
 using Labb3_GUI.Models;
+using Labb3_GUI.Visuals;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +13,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 
 namespace Labb3_GUI.ViewModels
@@ -31,11 +33,15 @@ namespace Labb3_GUI.ViewModels
             PlayerViewModel = new PlayerViewModel(this);
             ConfigurationViewModel = new ConfigurationViewModel(this);
 
+            CurrentView = ConfigurationViewModel;
+
             SelectPackCommand = new DelegateCommand(SelectPack);
             OpenCreatePackCommand = new DelegateCommand(OpenCreatePack, CanOpenCreatePack);
             SaveNewPackCommand = new DelegateCommand(SaveNewPack);
             ExitCommand = new DelegateCommand(ExitApp);
             DeletePackCommand = new DelegateCommand(DeletePack, CanDeletePack);
+            ShowPlayerViewCommand = new DelegateCommand(ShowPlayerView);
+            ShowConfigViewCommand = new DelegateCommand(ShowConfigView);
 
         }
 
@@ -61,6 +67,7 @@ namespace Labb3_GUI.ViewModels
             }
         }
 
+
         public PlayerViewModel? PlayerViewModel { get; }
         public ConfigurationViewModel? ConfigurationViewModel { get; }
 
@@ -73,12 +80,24 @@ namespace Labb3_GUI.ViewModels
 
         });
 
+        private object _currentView;
+        public object CurrentView
+        {
+            get => _currentView;
+            set
+            {
+                _currentView = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public DelegateCommand SelectPackCommand { get; }
         public DelegateCommand OpenCreatePackCommand { get; }
         public DelegateCommand SaveNewPackCommand { get; }
         public DelegateCommand ExitCommand { get; }
         public DelegateCommand DeletePackCommand { get; }
+        public DelegateCommand ShowPlayerViewCommand { get; }
+        public DelegateCommand ShowConfigViewCommand { get; }
 
 
         public Action CloseDialog;
@@ -95,6 +114,16 @@ namespace Labb3_GUI.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+        private void ShowPlayerView(object? args)
+        {
+            CurrentView = PlayerViewModel;
+        }
+        private void ShowConfigView(object? args)
+        {
+            CurrentView = ConfigurationViewModel;
+        }
+
 
         private void ExitApp(object? args)
         {
