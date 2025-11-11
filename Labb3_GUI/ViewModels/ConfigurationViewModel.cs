@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Labb3_GUI.ViewModels
 {
@@ -73,7 +74,21 @@ namespace Labb3_GUI.ViewModels
 
         private void CreateNewQuestion()
         {
+
             var pack = ActivePack;
+
+            if(pack == null)
+            {
+                {
+                    MessageBox.Show(
+                        "No question pack is selected.\nPlease select a pack or create a new one before adding new questions.",
+                        "Ooops!",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning
+                    );
+                    return;
+                }
+            }
         
             SelectedQuestion = new Question("");
 

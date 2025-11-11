@@ -6,17 +6,25 @@
              xmlns:local="clr-namespace:Labb3_GUI.Visuals"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             DataContext="{Binding PlayerViewModel}">
-    <Grid>
-        <StackPanel>
-            <TextBox Text="{Binding DemoText, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Content="{Binding ActivePack.Name}" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center"
-                Command="{Binding SetPackNameCommand}"/>
-            
-        </StackPanel>
-        
+             DataContext="{Binding PlayerViewModel}"
+             Background="{StaticResource BackgroundBrush}">
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Fråga" Margin="10" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="0" Margin="20" HorizontalAlignment="Center" Text="{Binding ActivePack.Name}"/>
+        <StackPanel Grid.Row="1">
+            <Button HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Margin="25"
+                    Background="Gainsboro"
+                    Content="Svar 1"/>
+
+
+
+        </StackPanel>
     </Grid>
 </UserControl>

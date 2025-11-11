@@ -8,11 +8,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding ConfigurationViewModel}"
+             Background="{StaticResource BackgroundBrush}"
              >
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -45,13 +46,16 @@
                         ToolTip="Edit Question Pack"/>
             </StackPanel>
         </DockPanel>
-       
+
         <ListBox Grid.Row="1" 
                  x:Name="textblock" 
                  Margin="10 0 10 10" 
                  VerticalAlignment="Stretch" 
                  ItemsSource="{Binding ActivePack.Questions}"
-                 SelectedItem="{Binding SelectedQuestion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                 SelectedItem="{Binding SelectedQuestion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Background="{StaticResource BackgroundBrush}" 
+                 BorderBrush="{StaticResource PrimaryBrush}"
+                 BorderThickness="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -69,7 +73,9 @@
                 <Label  Content="Question:"/>
                 <TextBox Margin="10 0 10 10" 
                          Height="100"
-                         Text="{Binding SelectedQuestion.Query, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding SelectedQuestion.Query, UpdateSourceTrigger=PropertyChanged}"
+                         AcceptsReturn="True"
+                         TextWrapping="Wrap"/>
 
                 <Label Margin="20,10,20,0" Padding="0" Content="Correct answer:"/>
                 <TextBox Margin="20,0,20,0" 
@@ -83,7 +89,7 @@
                 <Label Margin="20,10,20,0" Padding="0" Content="Third incorrect answer:"/>
                 <TextBox Margin="20,0,20,0"
                          Text="{Binding SelectedQuestion.IncorrectAnswers[2], UpdateSourceTrigger=PropertyChanged}"/>
-              
+
             </StackPanel>
         </DockPanel>
     </Grid>
