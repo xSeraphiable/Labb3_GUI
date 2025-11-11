@@ -11,7 +11,8 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
+
 
 namespace Labb3_GUI.ViewModels
 {
@@ -34,6 +35,7 @@ namespace Labb3_GUI.ViewModels
             OpenCreatePackCommand = new DelegateCommand(OpenCreatePack, CanOpenCreatePack);
             SaveNewPackCommand = new DelegateCommand(SaveNewPack);
             ExitCommand = new DelegateCommand(ExitApp);
+            DeletePackCommand = new DelegateCommand(DeletePack, CanDeletePack);
 
         }
 
@@ -55,6 +57,7 @@ namespace Labb3_GUI.ViewModels
                 RaisePropertyChanged();
                 PlayerViewModel?.RaisePropertyChanged(nameof(PlayerViewModel.ActivePack));
                 ConfigurationViewModel?.RaisePropertyChanged(nameof(ConfigurationViewModel.ActivePack));
+                DeletePackCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -75,6 +78,8 @@ namespace Labb3_GUI.ViewModels
         public DelegateCommand OpenCreatePackCommand { get; }
         public DelegateCommand SaveNewPackCommand { get; }
         public DelegateCommand ExitCommand { get; }
+        public DelegateCommand DeletePackCommand { get; }
+
 
         public Action CloseDialog;
         public Action OpenDialog;
@@ -136,6 +141,37 @@ namespace Labb3_GUI.ViewModels
             //return CreatePackName.Length > 0;
         }
 
+        private void DeletePack(object? args)
+        {
+            if (ActivePack == null) return;
+
+            var result = MessageBox.Show(
+               $"Are you sure you want to delete {ActivePack.Name}?",
+               "Delete pack",
+               MessageBoxButton.OKCancel,
+               MessageBoxImage.Warning,
+               MessageBoxResult.Cancel);
+
+            if (result == MessageBoxResult.OK)
+            {
+                var index = Packs.IndexOf(ActivePack);
+                Packs.Remove(ActivePack);
+
+                if (Packs.Count > 0)
+                {
+                    ActivePack = Packs[Math.Min(index, Packs.Count - 1)];
+                }
+                else
+                {
+                    ActivePack = null;
+                }
+            }
+        }
+
+        private bool CanDeletePack(object? args)
+        {
+            return ActivePack != null;
+        }
 
     }
 }

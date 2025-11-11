@@ -28,7 +28,12 @@
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
             </MenuItem>
-            
+
+            <MenuItem Header="_Delete Question Pack" 
+           Icon="{fa:Icon folderminus}"
+           Command="{Binding DeletePackCommand}"
+                                 />
+
             <Separator/>
             
             <MenuItem Header="E_xit" Icon="{fa:Icon xmark}" 
