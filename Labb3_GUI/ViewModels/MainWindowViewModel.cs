@@ -119,6 +119,7 @@ namespace Labb3_GUI.ViewModels
 
         private void ShowPlayerView(object? args)
         {
+            PlayerViewModel.InitializeQuiz();
             CurrentView = PlayerViewModel;
         }
         private void ShowConfigView(object? args)

@@ -57,11 +57,11 @@ namespace Labb3_GUI.ViewModels
 
         public void DeleteQuestion(object obj)
         {
-            var pack = ActivePack;
-            if (pack == null || SelectedQuestion == null)
+            //var pack = ActivePack;
+            if (ActivePack == null || SelectedQuestion == null)
                 return;
 
-            pack.Questions.Remove(SelectedQuestion);
+            ActivePack.Questions.Remove(SelectedQuestion);
 
             SelectedQuestion = null;
 
@@ -74,8 +74,6 @@ namespace Labb3_GUI.ViewModels
 
         private void CreateNewQuestion()
         {
-
-            //var pack = ActivePack;
 
             if(ActivePack == null)
             {

@@ -27,4 +27,6 @@ class Question
     public string CorrectAnswer { get; set; }
 
     public string[] IncorrectAnswers { get; set; }
+
+    public List<string> ShuffledAnswers { get; set; } = new();
 }

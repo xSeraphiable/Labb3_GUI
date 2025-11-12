@@ -2,9 +2,13 @@
 using Labb3_GUI.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace Labb3_GUI.ViewModels
 {
@@ -19,30 +23,170 @@ namespace Labb3_GUI.ViewModels
         {
             this._mainWindowViewModel = mainWindowViewModel;
 
-            SetPackNameCommand = new DelegateCommand(SetPackName, CanSetPackName);
-            DemoText = string.Empty;
-        }
-        private string _demoText;
 
-        public string DemoText
+            AnswerCommand = new DelegateCommand(CheckAnswer);
+
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Tick += Timer_Tick;
+            
+
+        }
+
+        public DelegateCommand AnswerCommand { get; }
+
+        public ObservableCollection<Question> PlayQuestions { get; private set; }
+        
+        
+        private Question _currentQuestion;
+
+        public Question CurrentQuestion
         {
-            get { return _demoText; }
-            set
+            get => _currentQuestion;
+            set { _currentQuestion = value; RaisePropertyChanged(); }
+        }
+
+        public int CurrentQuestionIndex { get; set; }
+
+        private static readonly Random _rng = new Random();
+
+        private readonly DispatcherTimer _timer;
+
+        public int Score { get; set; }
+
+
+
+        private int _timeLeft;
+
+        public int TimeLeft
+        {
+            get { return _timeLeft; }
+            set { _timeLeft = value; RaisePropertyChanged(); }
+        }
+
+        
+
+
+        private bool _isAnswerCorrect;
+        public bool IsAnswerCorrect
+        {
+            get => _isAnswerCorrect;
+            set { _isAnswerCorrect = value; RaisePropertyChanged(); }
+        }
+
+        private bool _showFeedback;
+        public bool ShowFeedback
+        {
+            get => _showFeedback;
+            set { _showFeedback = value; RaisePropertyChanged(); }
+        }
+
+        private void Timer_Tick(object? sender, EventArgs e)
+        {
+
+            if (TimeLeft > 0)
             {
-                _demoText = value;
-                RaisePropertyChanged();
-                SetPackNameCommand.RaiseCanExecuteChanged();
+                TimeLeft--;
             }
+            else
+            {
+                _timer.Stop();
+                OnTimeUp();
+            }
+
         }
 
-        private bool CanSetPackName(object? args)
+        public void StartTimer(int seconds)
         {
-            return DemoText.Length > 0;
+            TimeLeft = seconds;
+            _timer.Start();
         }
 
-        private void SetPackName(object obj)
+     
+        private void ShowResults()
         {
-            ActivePack.Name = DemoText;
+            MessageBox.Show($"Du fick {Score} rätt av {PlayQuestions.Count} frågor.");
         }
+
+        private void MoveToNextQuestion()
+        {
+            var currentIndex = PlayQuestions.IndexOf(CurrentQuestion);
+            if (currentIndex + 1 < PlayQuestions.Count)
+            {
+                CurrentQuestion = PlayQuestions[currentIndex + 1];
+                StartTimer(ActivePack.TimeLimitInSeconds);
+            }
+            else
+                ShowResults();
+        }
+
+        private async void CheckAnswer(object? args)
+        {
+
+            var selectedAnswer = args as string;
+            if (selectedAnswer == null) return;
+
+            if (CurrentQuestion == null)
+                return;
+
+            IsAnswerCorrect = selectedAnswer == CurrentQuestion.CorrectAnswer;
+            
+            if (IsAnswerCorrect) {
+                MessageBox.Show("fungerar");
+                Score++;
+                                   }
+
+            _timer.Stop();
+
+            // Visa feedback (t.ex. via boolar för färg)
+            ShowFeedback = true;
+
+            await Task.Delay(1500);
+
+            ShowFeedback = false;
+            MoveToNextQuestion();
+        }
+
+        private async void OnTimeUp()
+        {
+
+            _timer.Stop();
+
+            // Visa feedback (t.ex. via boolar för färg)
+            ShowFeedback = true;
+
+            await Task.Delay(1500);
+
+            ShowFeedback = false;
+            MoveToNextQuestion();
+        }
+
+        public void InitializeQuiz()
+        {
+            if (ActivePack == null)
+            {
+                MessageBox.Show("No question pack selected.", "Ooops!");
+                return;
+            }
+
+            var shuffled = _mainWindowViewModel.ActivePack.Questions.ToList();
+
+            shuffled = shuffled.OrderBy(q => _rng.Next()).ToList();
+            
+            PlayQuestions = new ObservableCollection<Question>(shuffled);
+
+            foreach (var q in PlayQuestions)
+            {
+                var allAnswers = new List<string>(q.IncorrectAnswers) { q.CorrectAnswer };
+                q.ShuffledAnswers = allAnswers.OrderBy(a => _rng.Next()).ToList();
+            }
+            
+            CurrentQuestionIndex = 0;
+            CurrentQuestion = PlayQuestions[CurrentQuestionIndex];
+
+            StartTimer(ActivePack.TimeLimitInSeconds);
+        }
+
+
     }
 }
