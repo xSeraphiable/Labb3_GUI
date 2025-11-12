@@ -21,20 +21,18 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel>
-            
+                  
         <Label Content="Quiz time!" FontSize="28" Margin="10" HorizontalAlignment="Center"/>
-        <TextBlock Text="Fråga x / x" FontSize="14"
-                       Margin="5" HorizontalAlignment="Center"/>
-            
-        </StackPanel>
-        
+                       
+              
         <TextBlock Grid.Row="1" Margin="20" FontSize="24" FontWeight="Bold" 
                    HorizontalAlignment="Center" 
                    Text="{Binding CurrentQuestion.Query}"/>
         <TextBlock Grid.Row="1" Margin="20" FontSize="30" FontWeight="ExtraBold" 
                    HorizontalAlignment="Right" 
                    Text="{Binding TimeLeft}"/>
+        <TextBlock Grid.Row="1" Text="{Binding CurrentQuestionNumber}" FontSize="14"
+            Margin="5" HorizontalAlignment="Center"/>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <!-- Svar 0 -->
@@ -51,7 +49,7 @@
                       VerticalAlignment="Bottom"
                       Visibility="{Binding ShowCorrectIndicator[0], Converter={StaticResource BoolToVis}}">
                     <fa:IconImage.Effect>
-                        <DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="0"/>
+                        <DropShadowEffect Color="Black" BlurRadius="0" ShadowDepth="0"/>
                     </fa:IconImage.Effect>
                 </fa:IconImage>
                 <!-- Cross -->

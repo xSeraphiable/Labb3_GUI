@@ -17,6 +17,10 @@
             <v:PlayerView />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:PlayerResultViewModel}">
+            <v:PlayerResultView />
+        </DataTemplate>
+
 
         <!-- Färgtema -->
         <SolidColorBrush x:Key="BackgroundBrush" Color="#FFE0F7FA"/>
