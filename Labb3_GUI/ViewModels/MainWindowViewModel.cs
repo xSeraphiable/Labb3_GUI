@@ -38,6 +38,7 @@ namespace Labb3_GUI.ViewModels
             SelectPackCommand = new DelegateCommand(SelectPack);
             OpenCreatePackCommand = new DelegateCommand(OpenCreatePack, CanOpenCreatePack);
             SaveNewPackCommand = new DelegateCommand(SaveNewPack);
+            EditPackCommand = new DelegateCommand(EditPack);
             ExitCommand = new DelegateCommand(ExitApp);
             DeletePackCommand = new DelegateCommand(DeletePack, CanDeletePack);
             ShowPlayerViewCommand = new DelegateCommand(ShowPlayerView);
@@ -94,6 +95,7 @@ namespace Labb3_GUI.ViewModels
         public DelegateCommand SelectPackCommand { get; }
         public DelegateCommand OpenCreatePackCommand { get; }
         public DelegateCommand SaveNewPackCommand { get; }
+        public DelegateCommand EditPackCommand { get; }
         public DelegateCommand ExitCommand { get; }
         public DelegateCommand DeletePackCommand { get; }
         public DelegateCommand ShowPlayerViewCommand { get; }
@@ -168,6 +170,25 @@ namespace Labb3_GUI.ViewModels
         {
             return true;
             //return CreatePackName.Length > 0;
+        }
+
+        private void EditPack(object obj)
+        {
+            if (ActivePack == null)
+            {
+                {
+                    MessageBox.Show(
+                        "No question pack is selected.",
+                        "Ooops!",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning
+                    );
+                    return;
+                }
+            }
+
+            var dialog = new PackOptionsDialog();
+            OpenDialog?.Invoke();
         }
 
         private void DeletePack(object? args)

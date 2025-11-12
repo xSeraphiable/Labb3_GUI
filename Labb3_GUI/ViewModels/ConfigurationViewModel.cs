@@ -75,9 +75,9 @@ namespace Labb3_GUI.ViewModels
         private void CreateNewQuestion()
         {
 
-            var pack = ActivePack;
+            //var pack = ActivePack;
 
-            if(pack == null)
+            if(ActivePack == null)
             {
                 {
                     MessageBox.Show(
@@ -92,7 +92,7 @@ namespace Labb3_GUI.ViewModels
         
             SelectedQuestion = new Question("");
 
-            pack.Questions.Add(SelectedQuestion);
+            ActivePack.Questions.Add(SelectedQuestion);
 
             _mainWindowViewModel.SavePacksToJson();
 

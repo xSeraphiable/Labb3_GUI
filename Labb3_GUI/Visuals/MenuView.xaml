@@ -53,7 +53,8 @@
             <MenuItem Header="Set Pack Name" 
                       Command="{Binding PlayerViewModel.SetPackNameCommand}"/>
             <MenuItem x:Name="EditPack" 
-                      Header="E_dit Question Pack" 
+                      Header="E_dit Question Pack"
+                      Command="{Binding EditPackCommand}"
                       Icon="{fa:Icon pentosquare}"/>
         </MenuItem>
 

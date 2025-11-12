@@ -41,8 +41,13 @@
         </StackPanel>
 
         <StackPanel Grid.Row="3">
+            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
+                <Label Content="Choose time limit:" Margin="10,0,0,0" Padding="0" />
+                <TextBlock Text="{Binding ActivePack.TimeLimitInSeconds}" 
+       Margin="5,0,0,0"
+       FontWeight="Bold"/>
+            </StackPanel>
 
-            <Label Content="Choose time limit:" Margin="10,0,0,0" Padding="0" />
             <Slider x:Name="TimeLimitSlider"
                     Minimum="10" 
                     Maximum="60" 

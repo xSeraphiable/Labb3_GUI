@@ -6,30 +6,28 @@
         xmlns:local="clr-namespace:Labb3_GUI.Dialogs"
         mc:Ignorable="d"
         Title="Pack Options" Height="200" Width="200"
-        Background="DarkGray"
+        Background="{StaticResource BackgroundBrush}"
         DataContext="{Binding MainWindowViewModel}">
+    
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="0">
 
             <Label Content="Pack name:" Margin="10,0,0,0" Padding="0" />
             <TextBox x:Name="packName" 
-                     Margin="10 0 10 0" 
-                     Width="180" 
-                     BorderBrush="Gray" 
-                     Background="LightGray"
+                     Margin="10 0 10 0"                       
                      Text="{Binding ActivePack.Name, UpdateSourceTrigger=PropertyChanged}"/>
 
         </StackPanel>
 
-        <StackPanel Grid.Row="2" >
+        <StackPanel Grid.Row="1" >
 
             <Label Content="Difficulty:" Margin="10,0,0,0" Padding="0" />
             <ComboBox Margin="10 0 10 0"
@@ -39,18 +37,23 @@
 
         </StackPanel>
 
-        <StackPanel Grid.Row="3"  >
-
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
             <Label Content="Time limit:" Margin="10,0,0,0" Padding="0" />
-            <Slider Foreground="LightGray" 
-                    Minimum="10" 
-                    Maximum="120" 
-                    TickFrequency="5" 
-                    Margin="10,0,10,0" 
-                    TickPlacement="BottomRight"
-                    Value="{Binding ActivePack.TimeLimitsInSeconds, UpdateSourceTrigger=PropertyChanged}"/>
-
+            <TextBlock Text="{Binding ActivePack.TimeLimitInSeconds}" 
+               Margin="5,0,0,0"
+               FontWeight="Bold"/>
         </StackPanel>
+
+        <Slider Grid.Row="3" x:Name="TimeLimitSlider"
+        Minimum="10"
+        Maximum="60"
+        TickFrequency="5"
+        IsSnapToTickEnabled="True"
+        Margin="10,0,10,0"
+        TickPlacement="BottomRight"
+        Value="{Binding ActivePack.TimeLimitInSeconds, UpdateSourceTrigger=PropertyChanged}"
+        AutoToolTipPlacement="TopLeft"
+        AutoToolTipPrecision="0" />
 
     </Grid>
 </Window>
