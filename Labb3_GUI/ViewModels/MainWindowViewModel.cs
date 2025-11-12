@@ -30,6 +30,7 @@ namespace Labb3_GUI.ViewModels
             Packs = new ObservableCollection<QuestionPackViewModel>(loadedPacks.Select(p => new QuestionPackViewModel(p)));
 
             SelectedDifficulty = Difficulties[1];
+
             PlayerViewModel = new PlayerViewModel(this);
             ConfigurationViewModel = new ConfigurationViewModel(this);
 

@@ -42,7 +42,7 @@
                         Height="18" 
                         Width="18" 
                         Content="{fa:Icon pentosquare}"
-                        Command="{Binding EditPackCommand}"
+                        Command="{Binding _mainWindowViewModel.EditPackCommand}"
                         ToolTip="Edit Question Pack"/>
             </StackPanel>
         </DockPanel>

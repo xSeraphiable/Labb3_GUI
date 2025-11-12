@@ -11,7 +11,8 @@ namespace Labb3_GUI.ViewModels
 {
     internal class ConfigurationViewModel : ViewModelBase
     {
-        private readonly MainWindowViewModel? _mainWindowViewModel;
+        public MainWindowViewModel? _mainWindowViewModel { get; }
+     
         public QuestionPackViewModel? ActivePack { get => _mainWindowViewModel?.ActivePack; }
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
         {

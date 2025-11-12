@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:local="clr-namespace:Labb3_GUI.Visuals"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="{StaticResource BackgroundBrush}">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -30,49 +35,126 @@
         <TextBlock Grid.Row="1" Margin="20" FontSize="30" FontWeight="ExtraBold" 
                    HorizontalAlignment="Right" 
                    Text="{Binding TimeLeft}"/>
-        
+
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button HorizontalAlignment="Center" 
-                    VerticalAlignment="Bottom"
-                    Margin="25"
-                    Height="75"
-                    Width="100"
-                    FontSize="18"
-                    Content="{Binding CurrentQuestion.ShuffledAnswers[0]}"
-                    Command="{Binding AnswerCommand}"
-                    CommandParameter="{Binding CurrentQuestion.ShuffledAnswers[0]}"
-                    />
-            <Button HorizontalAlignment="Center" 
-                    VerticalAlignment="Bottom"
-                    Margin="25"
-                    Height="75"
-                    Width="100"
-                    FontSize="18"
-                    Content="{Binding CurrentQuestion.ShuffledAnswers[1]}"
-                    Command="{Binding AnswerCommand}"
-                    CommandParameter="{Binding CurrentQuestion.ShuffledAnswers[1]}"/>
+            <!-- Svar 0 -->
+            <Grid Width="100" Height="75" Margin="25,0">
+                <Button Content="{Binding CurrentQuestion.ShuffledAnswers[0]}"
+                FontSize="18"
+                Command="{Binding AnswerCommand}"
+                CommandParameter="{Binding CurrentQuestion.ShuffledAnswers[0]}"/>
+                <!-- Checkmark -->
+                <fa:IconImage Icon="Check"
+                      Foreground="{StaticResource CorrectAnswerBrush}"
+                      Width="30" Height="30"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Bottom"
+                      Visibility="{Binding ShowCorrectIndicator[0], Converter={StaticResource BoolToVis}}">
+                    <fa:IconImage.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="0"/>
+                    </fa:IconImage.Effect>
+                </fa:IconImage>
+                <!-- Cross -->
+                <fa:IconImage Icon="Times"
+                      Foreground="{StaticResource IncorrectAnswerBrush}"
+                      Width="30" Height="30"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Bottom"
+                      Visibility="{Binding ShowIncorrectIndicator[0], Converter={StaticResource BoolToVis}}">
+                    <fa:IconImage.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="0"/>
+                    </fa:IconImage.Effect>
+                </fa:IconImage>
+            </Grid>
+
+            <!-- Svar 1 -->
+            <Grid Width="100" Height="75" Margin="25,0">
+                <Button Content="{Binding CurrentQuestion.ShuffledAnswers[1]}"
+                FontSize="18"
+                Command="{Binding AnswerCommand}"
+                CommandParameter="{Binding CurrentQuestion.ShuffledAnswers[1]}"/>
+                <fa:IconImage Icon="Check"
+                      Foreground="{StaticResource CorrectAnswerBrush}"
+                      Width="30" Height="30"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Bottom"
+                      Visibility="{Binding ShowCorrectIndicator[1], Converter={StaticResource BoolToVis}}">
+                    <fa:IconImage.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="0"/>
+                    </fa:IconImage.Effect>
+                </fa:IconImage>
+                <fa:IconImage Icon="Times"
+                      Foreground="{StaticResource IncorrectAnswerBrush}"
+                      Width="30" Height="30"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Bottom"
+                      Visibility="{Binding ShowIncorrectIndicator[1], Converter={StaticResource BoolToVis}}">
+                    <fa:IconImage.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="0"/>
+                    </fa:IconImage.Effect>
+                </fa:IconImage>
+            </Grid>
         </StackPanel>
-        
+
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button HorizontalAlignment="Center" 
-            VerticalAlignment="Top"
-            Margin="25"
-            Height="75"
-            Width="100"
-                    FontSize="18"
-            Content="{Binding CurrentQuestion.ShuffledAnswers[2]}"
-            Command="{Binding AnswerCommand}"
-            CommandParameter="{Binding CurrentQuestion.ShuffledAnswers[2]}"/>
-            <Button HorizontalAlignment="Center" 
-            VerticalAlignment="Top"
-            Margin="25"
-            Height="75"
-            Width="100"
-                    FontSize="18"
-            Content="{Binding CurrentQuestion.ShuffledAnswers[3]}"
-            Command="{Binding AnswerCommand}"
-            CommandParameter="{Binding CurrentQuestion.ShuffledAnswers[3]}"/>
+            <!-- Svar 2 -->
+            <Grid Width="100" Height="75" Margin="25,0">
+                <Button Content="{Binding CurrentQuestion.ShuffledAnswers[2]}"
+                FontSize="18"
+                Command="{Binding AnswerCommand}"
+                CommandParameter="{Binding CurrentQuestion.ShuffledAnswers[2]}"/>
+                <fa:IconImage Icon="Check"
+                      Foreground="{StaticResource CorrectAnswerBrush}"
+                      Width="30" Height="30"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Bottom"
+                      Visibility="{Binding ShowCorrectIndicator[2], Converter={StaticResource BoolToVis}}">
+                    <fa:IconImage.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="0"/>
+                    </fa:IconImage.Effect>
+                </fa:IconImage>
+                <fa:IconImage Icon="Times"
+                      Foreground="{StaticResource IncorrectAnswerBrush}"
+                      Width="30" Height="30"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Bottom"
+                      Visibility="{Binding ShowIncorrectIndicator[2], Converter={StaticResource BoolToVis}}">
+                    <fa:IconImage.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="0"/>
+                    </fa:IconImage.Effect>
+                </fa:IconImage>
+            </Grid>
+
+            <!-- Svar 3 -->
+            <Grid Width="100" Height="75" Margin="25,0">
+                <Button Content="{Binding CurrentQuestion.ShuffledAnswers[3]}"
+                FontSize="18"
+                Command="{Binding AnswerCommand}"
+                CommandParameter="{Binding CurrentQuestion.ShuffledAnswers[3]}"/>
+                <fa:IconImage Icon="Check"
+                      Foreground="{StaticResource CorrectAnswerBrush}"
+                      Width="30" Height="30"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Bottom"
+                      Visibility="{Binding ShowCorrectIndicator[3], Converter={StaticResource BoolToVis}}">
+                    <fa:IconImage.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="0"/>
+                    </fa:IconImage.Effect>
+                </fa:IconImage>
+                <fa:IconImage Icon="Times"
+                      Foreground="{StaticResource IncorrectAnswerBrush}"
+                      Width="30" Height="30"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Bottom"
+                      Visibility="{Binding ShowIncorrectIndicator[3], Converter={StaticResource BoolToVis}}">
+                    <fa:IconImage.Effect>
+                        <DropShadowEffect Color="Black" BlurRadius="4" ShadowDepth="0"/>
+                    </fa:IconImage.Effect>
+                </fa:IconImage>
+            </Grid>
         </StackPanel>
-        
+
+
+
     </Grid>
 </UserControl>

@@ -29,15 +29,15 @@ namespace Labb3_GUI.ViewModels
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(1);
             _timer.Tick += Timer_Tick;
-            
+
 
         }
 
         public DelegateCommand AnswerCommand { get; }
 
         public ObservableCollection<Question> PlayQuestions { get; private set; }
-        
-        
+
+
         private Question _currentQuestion;
 
         public Question CurrentQuestion
@@ -54,7 +54,8 @@ namespace Labb3_GUI.ViewModels
 
         public int Score { get; set; }
 
-
+        public List<bool> ShowCorrectIndicator { get; set; } = new List<bool> { false, false, false, false };
+        public List<bool> ShowIncorrectIndicator { get; set; } = new List<bool> { false, false, false, false };
 
         private int _timeLeft;
 
@@ -63,24 +64,7 @@ namespace Labb3_GUI.ViewModels
             get { return _timeLeft; }
             set { _timeLeft = value; RaisePropertyChanged(); }
         }
-
-        
-
-
-        private bool _isAnswerCorrect;
-        public bool IsAnswerCorrect
-        {
-            get => _isAnswerCorrect;
-            set { _isAnswerCorrect = value; RaisePropertyChanged(); }
-        }
-
-        private bool _showFeedback;
-        public bool ShowFeedback
-        {
-            get => _showFeedback;
-            set { _showFeedback = value; RaisePropertyChanged(); }
-        }
-
+  
         private void Timer_Tick(object? sender, EventArgs e)
         {
 
@@ -102,7 +86,7 @@ namespace Labb3_GUI.ViewModels
             _timer.Start();
         }
 
-     
+
         private void ShowResults()
         {
             MessageBox.Show($"Du fick {Score} rätt av {PlayQuestions.Count} frågor.");
@@ -113,6 +97,7 @@ namespace Labb3_GUI.ViewModels
             var currentIndex = PlayQuestions.IndexOf(CurrentQuestion);
             if (currentIndex + 1 < PlayQuestions.Count)
             {
+
                 CurrentQuestion = PlayQuestions[currentIndex + 1];
                 StartTimer(ActivePack.TimeLimitInSeconds);
             }
@@ -123,41 +108,34 @@ namespace Labb3_GUI.ViewModels
         private async void CheckAnswer(object? args)
         {
 
-            var selectedAnswer = args as string;
-            if (selectedAnswer == null) return;
-
-            if (CurrentQuestion == null)
+            var answer = args as string;
+            if (answer == null || CurrentQuestion == null)
                 return;
-
-            IsAnswerCorrect = selectedAnswer == CurrentQuestion.CorrectAnswer;
-            
-            if (IsAnswerCorrect) {
-                MessageBox.Show("fungerar");
-                Score++;
-                                   }
 
             _timer.Stop();
 
-            // Visa feedback (t.ex. via boolar för färg)
-            ShowFeedback = true;
+            int selectedIndex = CurrentQuestion.ShuffledAnswers.IndexOf(answer);
+            int correctIndex = CurrentQuestion.ShuffledAnswers.IndexOf(CurrentQuestion.CorrectAnswer);
 
-            await Task.Delay(1500);
+            if (selectedIndex == correctIndex)
+            {
+                Score++;
+            }
 
-            ShowFeedback = false;
+            await ShowFeedbackIndicators(selectedIndex);
+
+          
             MoveToNextQuestion();
         }
+
 
         private async void OnTimeUp()
         {
 
             _timer.Stop();
 
-            // Visa feedback (t.ex. via boolar för färg)
-            ShowFeedback = true;
+            await ShowFeedbackIndicators();
 
-            await Task.Delay(1500);
-
-            ShowFeedback = false;
             MoveToNextQuestion();
         }
 
@@ -172,7 +150,7 @@ namespace Labb3_GUI.ViewModels
             var shuffled = _mainWindowViewModel.ActivePack.Questions.ToList();
 
             shuffled = shuffled.OrderBy(q => _rng.Next()).ToList();
-            
+
             PlayQuestions = new ObservableCollection<Question>(shuffled);
 
             foreach (var q in PlayQuestions)
@@ -180,13 +158,52 @@ namespace Labb3_GUI.ViewModels
                 var allAnswers = new List<string>(q.IncorrectAnswers) { q.CorrectAnswer };
                 q.ShuffledAnswers = allAnswers.OrderBy(a => _rng.Next()).ToList();
             }
-            
+
             CurrentQuestionIndex = 0;
             CurrentQuestion = PlayQuestions[CurrentQuestionIndex];
 
             StartTimer(ActivePack.TimeLimitInSeconds);
         }
 
+        private async Task ShowFeedbackIndicators(int? selectedIndex = null)
+        {
+            if (CurrentQuestion == null)
+                return;
+
+            for (int i = 0; i < 4; i++)
+            {
+                ShowCorrectIndicator[i] = false;
+                ShowIncorrectIndicator[i] = false;
+            }
+
+
+            int correctIndex = CurrentQuestion.ShuffledAnswers.IndexOf(CurrentQuestion.CorrectAnswer);
+
+
+            ShowCorrectIndicator[correctIndex] = true;
+
+
+            if (selectedIndex.HasValue && selectedIndex.Value != correctIndex)
+            {
+                ShowIncorrectIndicator[selectedIndex.Value] = true;
+            }
+
+
+            RaisePropertyChanged(nameof(ShowCorrectIndicator));
+            RaisePropertyChanged(nameof(ShowIncorrectIndicator));
+
+
+            await Task.Delay(1800);
+
+
+            for (int i = 0; i < 4; i++)
+            {
+                ShowCorrectIndicator[i] = false;
+                ShowIncorrectIndicator[i] = false;
+            }
+            RaisePropertyChanged(nameof(ShowCorrectIndicator));
+            RaisePropertyChanged(nameof(ShowIncorrectIndicator));
+        }
 
     }
 }

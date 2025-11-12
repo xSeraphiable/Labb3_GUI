@@ -10,13 +10,12 @@
         MinHeight="500"
         MinWidth="600"
         Background="{StaticResource BackgroundBrush}">
-   
+
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Control" Command="{Binding OpenCreatePackCommand}" />
-        <KeyBinding Key="O" Modifiers="Control" Command="{Binding OpenPackCommand}" />
-        <KeyBinding Key="Q" Modifiers="Control" Command="{Binding ExitCommand}" />
+        <KeyBinding Key="Q" Modifiers="Alt" Command="{Binding ExitCommand}" />
     </Window.InputBindings>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -25,8 +24,6 @@
 
         <views:MenuView Grid.Row="0"/>
         <ContentControl Grid.Row="1" Content="{Binding CurrentView}" />
-        <!--<views:PlayerView Grid.Row="1"/>-->
-        <!--<views:ConfigurationView Grid.Row="1"/>-->
-
+  
     </Grid>
 </Window>

@@ -24,7 +24,7 @@ namespace Labb3_GUI.Visuals
     /// </summary>
     public partial class ConfigurationView : System.Windows.Controls.UserControl
     {
-        private int count = 1;
+       
         public ConfigurationView()
         {
             InitializeComponent();
@@ -33,21 +33,5 @@ namespace Labb3_GUI.Visuals
         }
 
 
-
-        private void Open_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new PackOptionsDialog();
-
-            if (dialog.ShowDialog() == true) { }
-
-        }        
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            QuestionPackViewModel viewModel = (DataContext as QuestionPackViewModel);
-            viewModel.Name = "New name";
-            viewModel.Questions.Add(new Question($"Fråga {count++}", "2", "3", "1", "4"));
-
-        }
     }
 }

@@ -17,12 +17,17 @@
             <v:PlayerView />
         </DataTemplate>
 
+
         <!-- Färgtema -->
         <SolidColorBrush x:Key="BackgroundBrush" Color="#FFE0F7FA"/>
         <SolidColorBrush x:Key="PrimaryBrush" Color="#FF00B7C2"/>
         <SolidColorBrush x:Key="SecondaryBrush" Color="#FFD48EF9"/>
         <SolidColorBrush x:Key="HeaderTextBrush" Color="#FF1A237E"/>
         <SolidColorBrush x:Key="BodyTextBrush" Color="#FF333333"/>
+        <SolidColorBrush x:Key="CorrectAnswerBrush" Color="#FF4CAF50"/>
+        <SolidColorBrush x:Key="IncorrectAnswerBrush" Color="#FFF44336"/>
+
+
 
         <!-- Globala stilar -->
         <Style TargetType="Label">
@@ -156,27 +161,53 @@
                                       />
                         </Border>
                         <ControlTemplate.Triggers>
-                            
+
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="border" Property="Background" Value="{StaticResource SecondaryBrush}"/>
                             </Trigger>
-                           
+
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter TargetName="border" Property="Background" Value="#FF0097A7"/>
-                                
+
                             </Trigger>
-                          
+
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="border" Property="Opacity" Value="0.5"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
-                        
+
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-                 </Style>
+        </Style>
 
-      
+        <!-- Buttons for Quiz -->
+        <Style x:Key="AnswerButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="75"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource SecondaryBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
         <!-- Menu (top-level menyrad) -->
         <Style TargetType="Menu">
             <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
@@ -270,6 +301,6 @@
             </Setter>
         </Style>
 
-       
+
     </Application.Resources>
 </Application>
