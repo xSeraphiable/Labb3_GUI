@@ -6,14 +6,19 @@
         xmlns:local="clr-namespace:Labb3_GUI"
         xmlns:views="clr-namespace:Labb3_GUI.Visuals"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="600"
-        MinHeight="500"
-        MinWidth="600"
+        Title="Ctrl Quiz" Height="650" Width="700"
+        MinHeight="650"
+        MinWidth="700"
         Background="{StaticResource BackgroundBrush}">
 
     <Window.InputBindings>
-        <KeyBinding Key="N" Modifiers="Control" Command="{Binding OpenCreatePackCommand}" />
-        <KeyBinding Key="Q" Modifiers="Alt" Command="{Binding ExitCommand}" />
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding OpenCreatePackCommand}" />
+        <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding EditPackCommand}" />
+        <KeyBinding Key="F4" Modifiers="Alt" Command="{Binding ExitCommand}" />
+        <KeyBinding Key="OemPlus" Modifiers="Ctrl" Command="{Binding ConfigurationViewModel.NewQuestionCommand}"/>
+        <KeyBinding Key="OemMinus" Modifiers="Ctrl" Command="{Binding ConfigurationViewModel.DeleteQuestionCommand}"/>
+        <KeyBinding Key="P" Modifiers="Ctrl" Command="{Binding ShowPlayerViewCommand}"/>
+        <KeyBinding Key="E" Modifiers="Ctrl" Command="{Binding ShowConfigViewCommand}"/>
     </Window.InputBindings>
 
     <Grid>
@@ -24,6 +29,6 @@
 
         <views:MenuView Grid.Row="0"/>
         <ContentControl Grid.Row="1" Content="{Binding CurrentView}" />
-  
+
     </Grid>
 </Window>

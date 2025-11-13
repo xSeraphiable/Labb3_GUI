@@ -14,6 +14,7 @@
 
         <MenuItem Header="_File">
             <MenuItem x:Name="newQuestionPack" Header="_New Question Pack" 
+                      InputGestureText="Ctrl + N" 
                       Icon="{fa:Icon folderplus}"
                       Command="{Binding OpenCreatePackCommand}"
                                             />
@@ -38,28 +39,38 @@
 
             <Separator/>
 
-            <MenuItem Header="E_xit" Icon="{fa:Icon xmark}" 
+            <MenuItem Header="E_xit" 
+                      Icon="{fa:Icon xmark}"
+                      InputGestureText="Alt + F4" 
                       Command="{Binding ExitCommand}"/>
         </MenuItem>
 
         <MenuItem Header="_Edit">
             <MenuItem Header="A_dd Question" 
+                      InputGestureText="Ctrl + '+'" 
                       Icon="{fa:Icon plus}"
                       Command="{Binding ConfigurationViewModel.NewQuestionCommand}"
                       />
             <MenuItem Header="_Delete Question" 
-                      InputGestureText="Ctrl+R" 
+                      InputGestureText="Ctrl + '-'" 
                       Icon="{fa:Icon minus}"
                       Command="{Binding ConfigurationViewModel.DeleteQuestionCommand}"/>
             <MenuItem x:Name="EditPack" 
                       Header="E_dit Question Pack"
+                      InputGestureText="Ctrl + O" 
                       Command="{Binding EditPackCommand}"
                       Icon="{fa:Icon pentosquare}"/>
         </MenuItem>
 
         <MenuItem Header="_View">
-            <MenuItem Header="Play" Icon="{fa:Icon play}" Command="{Binding ShowPlayerViewCommand}"/>
-            <MenuItem Header="Edit" Icon="{fa:Icon play}" Command="{Binding ShowConfigViewCommand}"/>
+            <MenuItem Header="Play" 
+                      Icon="{fa:Icon play}" 
+                      InputGestureText="Ctrl + P" 
+                      Command="{Binding ShowPlayerViewCommand}"/>
+            <MenuItem Header="Edit" 
+                      Icon="{fa:Icon play}" 
+                      InputGestureText="Ctrl + E" 
+                      Command="{Binding ShowConfigViewCommand}"/>
         </MenuItem>
 
     </Menu>
