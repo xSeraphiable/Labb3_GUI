@@ -9,6 +9,7 @@
         Title="Ctrl Quiz" Height="650" Width="700"
         MinHeight="650"
         MinWidth="700"
+        Icon="{StaticResource AppIcon}"
         Background="{StaticResource BackgroundBrush}"
         WindowState="{Binding WindowState, Mode=TwoWay}"
         WindowStyle="{Binding WindowStyle, Mode=TwoWay}">

@@ -56,7 +56,6 @@ namespace Labb3_GUI.Data
             File.WriteAllText(packPath, json);
         }
 
-        //lägg till två metoder: en som läser in filer och en som sparar
-        //använd QuestionPack som mappar mot QuestionPackViewModel som sista steg
+
     }
 }

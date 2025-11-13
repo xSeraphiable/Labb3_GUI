@@ -21,6 +21,8 @@
             <v:PlayerResultView />
         </DataTemplate>
 
+        <!-- Ikon -->
+        <BitmapImage x:Key="AppIcon" UriSource="Assets/ctrlquiz.ico"/>
 
         <!-- Färgtema -->
         <SolidColorBrush x:Key="BackgroundBrush" Color="#FFE0F7FA"/>
@@ -225,7 +227,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Separator">
                         <Grid Margin="10,2,0,2" Height="1">
-                            <Rectangle Fill="{StaticResource BackgroundBrush}" Height="1" Opacity="0.4"/>
+                            <Rectangle Fill="Black" Height="1" Opacity="0.4"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -283,12 +285,12 @@
                            Focusable="False"
                            StaysOpen="False"
                            IsOpen="{TemplateBinding IsSubmenuOpen}">
-                                <Border x:Name="Border" Background="{StaticResource PrimaryBrush}"
-                                BorderBrush="{StaticResource PrimaryBrush}"
+                                <Border x:Name="Border" Background="{StaticResource PrimaryBrush}"                                        
+                                BorderBrush="Black"
                                 CornerRadius="6"
                                 BorderThickness="1"
                                 Margin="0,0,4,0"
-                                MinWidth="120"
+                                MinWidth="200"
                                 SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Contained" />
@@ -309,9 +311,9 @@
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="Border" Property="Background" Value="#FFCCCCCC"/>
-                                <!-- Ljusgrå bakgrund -->
+                               
                                 <Setter Property="Foreground" Value="LightSlateGray"/>
-                                <!-- Mörkgrå text -->
+                               
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

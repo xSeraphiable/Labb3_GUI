@@ -1,5 +1,6 @@
 ﻿using Labb3_GUI.Command;
 using Labb3_GUI.Models;
+using Labb3_GUI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,14 @@ namespace Labb3_GUI.ViewModels
     internal class ConfigurationViewModel : ViewModelBase
     {
         public MainWindowViewModel? _mainWindowViewModel { get; }
-     
+
         public QuestionPackViewModel? ActivePack { get => _mainWindowViewModel?.ActivePack; }
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
         {
             this._mainWindowViewModel = mainWindowViewModel;
+
             DeleteQuestionCommand = new DelegateCommand(DeleteQuestion, CanDeleteQuestion);
-            NewQuestionCommand = new DelegateCommand(_ =>CreateNewQuestion());
+            NewQuestionCommand = new DelegateCommand(CreateNewQuestion, CanCreateQuestion);
 
             if (_mainWindowViewModel != null)
             {
@@ -29,6 +31,11 @@ namespace Labb3_GUI.ViewModels
                         RaisePropertyChanged(nameof(ActivePack));
                         RaisePropertyChanged(nameof(ActivePack.Questions));
                     }
+                    else if (e.PropertyName == nameof(_mainWindowViewModel.CurrentView))
+                    {
+                        NewQuestionCommand.RaiseCanExecuteChanged();
+                        DeleteQuestionCommand.RaiseCanExecuteChanged();
+                    }
                 };
             }
 
@@ -37,7 +44,7 @@ namespace Labb3_GUI.ViewModels
         public bool IsEditingQuestion => SelectedQuestion != null;
 
 
-        public DelegateCommand NewQuestionCommand  { get; }
+        public DelegateCommand NewQuestionCommand { get; }
         public DelegateCommand DeleteQuestionCommand { get; }
 
 
@@ -50,13 +57,13 @@ namespace Labb3_GUI.ViewModels
             {
                 _selectedQuestion = value;
                 RaisePropertyChanged();
-
+                RaisePropertyChanged(nameof(IsEditingQuestion));
                 DeleteQuestionCommand.RaiseCanExecuteChanged();
-                               
+
             }
         }
 
-        public void DeleteQuestion(object obj)
+        public void DeleteQuestion(object args)
         {
             //var pack = ActivePack;
             if (ActivePack == null || SelectedQuestion == null)
@@ -70,13 +77,13 @@ namespace Labb3_GUI.ViewModels
 
         public bool CanDeleteQuestion(object? args)
         {
-            return SelectedQuestion != null;
+            return SelectedQuestion != null && _mainWindowViewModel.CurrentView is ConfigurationViewModel;
         }
 
-        private void CreateNewQuestion()
+        private void CreateNewQuestion(object args)
         {
 
-            if(ActivePack == null)
+            if (ActivePack == null)
             {
                 {
                     MessageBox.Show(
@@ -88,13 +95,18 @@ namespace Labb3_GUI.ViewModels
                     return;
                 }
             }
-        
+
             SelectedQuestion = new Question("");
 
             ActivePack.Questions.Add(SelectedQuestion);
 
             _mainWindowViewModel.SavePacksToJson();
 
+        }
+
+        private bool CanCreateQuestion(object? args)
+        {
+            return _mainWindowViewModel.CurrentView is ConfigurationViewModel;
         }
 
     }

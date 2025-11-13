@@ -21,7 +21,7 @@ namespace Labb3_GUI.ViewModels
         private int _timeLeft;
 
         public DelegateCommand AnswerCommand { get; }
-      
+
         public QuestionPackViewModel? ActivePack => _mainWindowViewModel?.ActivePack;
 
         public ObservableCollection<Question> PlayQuestions { get; private set; }
@@ -60,7 +60,7 @@ namespace Labb3_GUI.ViewModels
             _mainWindowViewModel = mainWindowViewModel;
 
             AnswerCommand = new DelegateCommand(CheckAnswer);
-           
+
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(1);
             _timer.Tick += Timer_Tick;
@@ -83,6 +83,13 @@ namespace Labb3_GUI.ViewModels
             TimeLeft = seconds;
             _timer.Start();
         }
+
+        public void StopQuiz()
+        {
+            _timer.Stop();
+            TimeLeft = 0;
+        }
+
 
         private void MoveToNextQuestion()
         {
@@ -145,7 +152,7 @@ namespace Labb3_GUI.ViewModels
             ResetIndicators();
         }
 
-      
+
         private int GetCorrectAnswerIndex() =>
             CurrentQuestion.ShuffledAnswers.IndexOf(CurrentQuestion.CorrectAnswer);
 
@@ -161,7 +168,7 @@ namespace Labb3_GUI.ViewModels
             RaisePropertyChanged(nameof(ShowIncorrectIndicator));
         }
 
-       
+
         private void ResetIndicators()
         {
             for (int i = 0; i < 4; i++)

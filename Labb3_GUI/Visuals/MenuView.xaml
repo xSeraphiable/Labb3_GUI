@@ -48,12 +48,12 @@
 
         <MenuItem Header="_Edit">
             <MenuItem Header="_Add Question" 
-                      InputGestureText="Ctrl + '+'" 
+                      InputGestureText="Ctrl + +" 
                       Icon="{fa:Icon plus}"
                       Command="{Binding ConfigurationViewModel.NewQuestionCommand}"
                       />
             <MenuItem Header="_Delete Question" 
-                      InputGestureText="Ctrl + '-'" 
+                      InputGestureText="Ctrl + -" 
                       Icon="{fa:Icon minus}"
                       Command="{Binding ConfigurationViewModel.DeleteQuestionCommand}"/>
             <MenuItem x:Name="EditPack" 

@@ -2,24 +2,19 @@
 using Labb3_GUI.Data;
 using Labb3_GUI.Dialogs;
 using Labb3_GUI.Models;
-using Labb3_GUI.Visuals;
-using System;
-using System.Collections.Generic;
+using Labb3_GUI.Services;
+
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+
 using System.Windows;
-using System.Windows.Controls;
+
 
 
 namespace Labb3_GUI.ViewModels
 {
     class MainWindowViewModel : ViewModelBase
     {
+        private readonly AppNavigator _navigator;
         private WindowState _windowState = WindowState.Normal;
         private WindowStyle _windowStyle = WindowStyle.SingleBorderWindow;
         private bool _isFullScreen = false;
@@ -34,23 +29,27 @@ namespace Labb3_GUI.ViewModels
 
             SelectedDifficulty = Difficulties[1];
 
+            
+
+            _navigator = new AppNavigator();
             PlayerViewModel = new PlayerViewModel(this);
             ConfigurationViewModel = new ConfigurationViewModel(this);
 
-            CurrentView = ConfigurationViewModel;
-
-
             SelectPackCommand = new DelegateCommand(SelectPack);
-            OpenCreatePackCommand = new DelegateCommand(OpenCreatePack, CanOpenCreatePack);
+            OpenCreatePackCommand = new DelegateCommand(OpenCreatePack, CanEditPack);
             SaveNewPackCommand = new DelegateCommand(SaveNewPack);
-            EditPackCommand = new DelegateCommand(EditPack);
+            EditPackCommand = new DelegateCommand(EditPack, CanEditPack);
             ExitCommand = new DelegateCommand(ExitApp);
             DeletePackCommand = new DelegateCommand(DeletePack, CanDeletePack);
             ShowPlayerViewCommand = new DelegateCommand(ShowPlayerView);
             ShowConfigViewCommand = new DelegateCommand(ShowConfigView);
             ToggleFullscreenCommand = new DelegateCommand(ToggleFullScreen);
-            
 
+            _navigator.NavigatingAwayFromQuiz += PlayerViewModel.StopQuiz;
+            _navigator.ViewChanged += view => CurrentView = view;
+            _navigator.NavigateTo(ConfigurationViewModel);
+
+            ActivePack = Packs.FirstOrDefault();
         }
 
         public ObservableCollection<QuestionPackViewModel> Packs { get; } = new();
@@ -97,6 +96,10 @@ namespace Labb3_GUI.ViewModels
             {
                 _currentView = value;
                 RaisePropertyChanged();
+
+                OpenCreatePackCommand.RaiseCanExecuteChanged();
+                DeletePackCommand.RaiseCanExecuteChanged();
+
             }
         }
 
@@ -163,14 +166,16 @@ namespace Labb3_GUI.ViewModels
 
 
 
+        
         private void ShowPlayerView(object? args)
         {
             PlayerViewModel.InitializeQuiz();
-            CurrentView = PlayerViewModel;
+            _navigator.NavigateTo(PlayerViewModel);
         }
+
         private void ShowConfigView(object? args)
         {
-            CurrentView = ConfigurationViewModel;
+            _navigator.NavigateTo(ConfigurationViewModel);
         }
 
 
@@ -213,12 +218,6 @@ namespace Labb3_GUI.ViewModels
 
         }
 
-        private bool CanOpenCreatePack(object? args)
-        {
-            return true;
-            //return CreatePackName.Length > 0;
-        }
-
         private void EditPack(object args)
         {
             if (ActivePack == null)
@@ -236,6 +235,11 @@ namespace Labb3_GUI.ViewModels
 
             var dialog = new PackOptionsDialog();
             OpenDialog?.Invoke();
+        }
+
+        private bool CanEditPack(object? args)
+        {
+            return (CurrentView is ConfigurationViewModel);
         }
 
         private void DeletePack(object? args)
@@ -267,7 +271,7 @@ namespace Labb3_GUI.ViewModels
 
         private bool CanDeletePack(object? args)
         {
-            return ActivePack != null;
+            return ActivePack != null && Packs.Contains(ActivePack) && (CurrentView is ConfigurationViewModel);
         }
 
    

@@ -49,7 +49,7 @@
             </StackPanel>
 
             <Slider x:Name="TimeLimitSlider"
-                    Minimum="10" 
+                    Minimum="5" 
                     Maximum="60" 
                     TickFrequency="5"
                     IsSnapToTickEnabled="True"
