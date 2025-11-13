@@ -161,7 +161,7 @@
                             <ContentPresenter HorizontalAlignment="Center" 
                                       VerticalAlignment="Center"
                                       RecognizesAccessKey="True"
-                                              
+                                                                                            
                                       />
                         </Border>
                         <ControlTemplate.Triggers>

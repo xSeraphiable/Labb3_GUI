@@ -44,6 +44,7 @@ namespace Labb3_GUI.ViewModels
             DeletePackCommand = new DelegateCommand(DeletePack, CanDeletePack);
             ShowPlayerViewCommand = new DelegateCommand(ShowPlayerView);
             ShowConfigViewCommand = new DelegateCommand(ShowConfigView);
+            
 
         }
 
@@ -101,7 +102,7 @@ namespace Labb3_GUI.ViewModels
         public DelegateCommand DeletePackCommand { get; }
         public DelegateCommand ShowPlayerViewCommand { get; }
         public DelegateCommand ShowConfigViewCommand { get; }
-
+       
 
         public Action CloseDialog;
         public Action OpenDialog;
