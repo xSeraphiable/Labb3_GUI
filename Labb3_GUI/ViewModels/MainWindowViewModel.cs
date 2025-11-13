@@ -20,6 +20,9 @@ namespace Labb3_GUI.ViewModels
 {
     class MainWindowViewModel : ViewModelBase
     {
+        private WindowState _windowState = WindowState.Normal;
+        private WindowStyle _windowStyle = WindowStyle.SingleBorderWindow;
+        private bool _isFullScreen = false;
         private readonly JsonPackService jsonService;
         public MainWindowViewModel()
         {
@@ -36,6 +39,7 @@ namespace Labb3_GUI.ViewModels
 
             CurrentView = ConfigurationViewModel;
 
+
             SelectPackCommand = new DelegateCommand(SelectPack);
             OpenCreatePackCommand = new DelegateCommand(OpenCreatePack, CanOpenCreatePack);
             SaveNewPackCommand = new DelegateCommand(SaveNewPack);
@@ -44,6 +48,7 @@ namespace Labb3_GUI.ViewModels
             DeletePackCommand = new DelegateCommand(DeletePack, CanDeletePack);
             ShowPlayerViewCommand = new DelegateCommand(ShowPlayerView);
             ShowConfigViewCommand = new DelegateCommand(ShowConfigView);
+            ToggleFullscreenCommand = new DelegateCommand(ToggleFullScreen);
             
 
         }
@@ -74,6 +79,7 @@ namespace Labb3_GUI.ViewModels
         public PlayerViewModel? PlayerViewModel { get; }
         public ConfigurationViewModel? ConfigurationViewModel { get; }
 
+      
 
         public ObservableCollection<Difficulty> Difficulties { get; } = new ObservableCollection<Difficulty>(new List<Difficulty>()
         {
@@ -102,6 +108,7 @@ namespace Labb3_GUI.ViewModels
         public DelegateCommand DeletePackCommand { get; }
         public DelegateCommand ShowPlayerViewCommand { get; }
         public DelegateCommand ShowConfigViewCommand { get; }
+        public DelegateCommand ToggleFullscreenCommand { get; }
        
 
         public Action CloseDialog;
@@ -118,6 +125,43 @@ namespace Labb3_GUI.ViewModels
                 RaisePropertyChanged();
             }
         }
+        public WindowState WindowState
+        {
+            get => _windowState;
+            set
+            {
+                _windowState = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public WindowStyle WindowStyle
+        {
+            get => _windowStyle;
+            set
+            {
+                _windowStyle = value;
+                RaisePropertyChanged();
+            }
+        }
+        private void ToggleFullScreen(object? args)
+        {
+            _isFullScreen = !_isFullScreen;
+
+            if (_isFullScreen)
+            {
+                WindowState = WindowState.Normal; 
+                WindowStyle = WindowStyle.None;
+                WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                WindowStyle = WindowStyle.SingleBorderWindow;
+                WindowState = WindowState.Normal;
+            }
+        }
+
+
 
         private void ShowPlayerView(object? args)
         {
@@ -159,7 +203,7 @@ namespace Labb3_GUI.ViewModels
                 ActivePack = pack;
         }
 
-        private void OpenCreatePack(object obj)
+        private void OpenCreatePack(object args)
         {
             var newPack = new QuestionPackViewModel(new QuestionPack(""));
             ActivePack = newPack;
@@ -175,7 +219,7 @@ namespace Labb3_GUI.ViewModels
             //return CreatePackName.Length > 0;
         }
 
-        private void EditPack(object obj)
+        private void EditPack(object args)
         {
             if (ActivePack == null)
             {
@@ -226,5 +270,6 @@ namespace Labb3_GUI.ViewModels
             return ActivePack != null;
         }
 
+   
     }
 }

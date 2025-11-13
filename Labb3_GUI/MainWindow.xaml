@@ -9,7 +9,9 @@
         Title="Ctrl Quiz" Height="650" Width="700"
         MinHeight="650"
         MinWidth="700"
-        Background="{StaticResource BackgroundBrush}">
+        Background="{StaticResource BackgroundBrush}"
+        WindowState="{Binding WindowState, Mode=TwoWay}"
+        WindowStyle="{Binding WindowStyle, Mode=TwoWay}">
 
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding OpenCreatePackCommand}" />
@@ -19,6 +21,7 @@
         <KeyBinding Key="OemMinus" Modifiers="Ctrl" Command="{Binding ConfigurationViewModel.DeleteQuestionCommand}"/>
         <KeyBinding Key="P" Modifiers="Ctrl" Command="{Binding ShowPlayerViewCommand}"/>
         <KeyBinding Key="E" Modifiers="Ctrl" Command="{Binding ShowConfigViewCommand}"/>
+        <KeyBinding Key="Return" Modifiers="Alt" Command="{Binding ToggleFullscreenCommand}"/>
     </Window.InputBindings>
 
     <Grid>

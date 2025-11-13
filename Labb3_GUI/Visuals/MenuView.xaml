@@ -71,6 +71,9 @@
                       Icon="{fa:Icon play}" 
                       InputGestureText="Ctrl + E" 
                       Command="{Binding ShowConfigViewCommand}"/>
+            <MenuItem Header="Fullscreen"              
+             InputGestureText="Alt + enter" 
+             Command="{Binding ToggleFullscreenCommand}"/>
         </MenuItem>
 
     </Menu>
