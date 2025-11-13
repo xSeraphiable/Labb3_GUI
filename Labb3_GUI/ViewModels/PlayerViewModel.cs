@@ -22,8 +22,6 @@ namespace Labb3_GUI.ViewModels
 
         public DelegateCommand AnswerCommand { get; }
       
-
-
         public QuestionPackViewModel? ActivePack => _mainWindowViewModel?.ActivePack;
 
         public ObservableCollection<Question> PlayQuestions { get; private set; }
@@ -50,8 +48,8 @@ namespace Labb3_GUI.ViewModels
         }
 
         public string CurrentQuestionNumber => PlayQuestions != null && CurrentQuestion != null ?
-            $"Fråga {PlayQuestions.IndexOf(CurrentQuestion) + 1} / {PlayQuestions.Count}"
-            : "Fråga 0 / 0";
+            $"Question {PlayQuestions.IndexOf(CurrentQuestion) + 1} / {PlayQuestions.Count}"
+            : "Question 0 / 0";
 
         public List<bool> ShowCorrectIndicator { get; set; } = new List<bool> { false, false, false, false };
         public List<bool> ShowIncorrectIndicator { get; set; } = new List<bool> { false, false, false, false };
@@ -139,9 +137,20 @@ namespace Labb3_GUI.ViewModels
         {
             if (CurrentQuestion == null) return;
 
-            int correctIndex = CurrentQuestion.ShuffledAnswers.IndexOf(CurrentQuestion.CorrectAnswer);
+            int correctIndex = GetCorrectAnswerIndex();
+            SetIndicators(correctIndex, selectedIndex);
 
+            await Task.Delay(1800);
 
+            ResetIndicators();
+        }
+
+      
+        private int GetCorrectAnswerIndex() =>
+            CurrentQuestion.ShuffledAnswers.IndexOf(CurrentQuestion.CorrectAnswer);
+
+        private void SetIndicators(int correctIndex, int? selectedIndex)
+        {
             for (int i = 0; i < 4; i++)
             {
                 ShowCorrectIndicator[i] = (i == correctIndex);
@@ -150,11 +159,11 @@ namespace Labb3_GUI.ViewModels
 
             RaisePropertyChanged(nameof(ShowCorrectIndicator));
             RaisePropertyChanged(nameof(ShowIncorrectIndicator));
+        }
 
-
-            await Task.Delay(1800);
-
-
+       
+        private void ResetIndicators()
+        {
             for (int i = 0; i < 4; i++)
                 ShowCorrectIndicator[i] = ShowIncorrectIndicator[i] = false;
 
@@ -162,32 +171,56 @@ namespace Labb3_GUI.ViewModels
             RaisePropertyChanged(nameof(ShowIncorrectIndicator));
         }
 
-
-
         public void InitializeQuiz()
+        {
+            if (!CheckActivePack()) return;
+
+            ResetScore();
+            ShuffleQuestions();
+            ShuffleAnswers();
+            SetCurrentQuestion();
+            StartTimer(ActivePack.TimeLimitInSeconds);
+        }
+
+        private bool CheckActivePack()
         {
             if (ActivePack == null)
             {
                 MessageBox.Show("No question pack selected.", "Ooops!");
-                return;
+                return false;
             }
+            return true;
+        }
 
-            Score = 0;
+        private void ResetScore() => Score = 0;
 
-            var shuffled = ActivePack.Questions.ToList();
-            shuffled = shuffled.OrderBy(q => _rng.Next()).ToList();
-            PlayQuestions = new ObservableCollection<Question>(shuffled);
+        private void ShuffleQuestions()
+        {
+            PlayQuestions = new ObservableCollection<Question>(
+                ActivePack.Questions
+                          .OrderBy(q => _rng.Next())
+            );
+        }
 
+        private void ShuffleAnswers()
+        {
             foreach (var q in PlayQuestions)
             {
-                var allAnswers = new List<string>(q.IncorrectAnswers) { q.CorrectAnswer };
-                q.ShuffledAnswers = allAnswers.OrderBy(a => _rng.Next()).ToList();
+                q.ShuffledAnswers = q.IncorrectAnswers
+                                      .Append(q.CorrectAnswer)
+                                      .OrderBy(a => _rng.Next())
+                                      .ToList();
             }
-
-            CurrentQuestionIndex = 0;
-            CurrentQuestion = PlayQuestions[CurrentQuestionIndex];
-
-            StartTimer(ActivePack.TimeLimitInSeconds);
         }
+
+        private void SetCurrentQuestion()
+        {
+            CurrentQuestionIndex = 0;
+            CurrentQuestion = PlayQuestions.FirstOrDefault();
+        }
+
+
+
+
     }
 }
