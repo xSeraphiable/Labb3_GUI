@@ -9,7 +9,8 @@
              d:DesignHeight="450" d:DesignWidth="800" 
              
              >
-    <Menu>
+    <Menu KeyboardNavigation.TabNavigation="Local"
+      KeyboardNavigation.DirectionalNavigation="Cycle">
 
 
         <MenuItem Header="_File">
@@ -25,19 +26,19 @@
                 <MenuItem.ItemTemplate>
                     <DataTemplate>
                         <MenuItem Header="{Binding Name}"
-                      Command="{Binding DataContext.SelectPackCommand,
+                                  Command="{Binding DataContext.SelectPackCommand,
                                         RelativeSource={RelativeSource AncestorType=UserControl}}"
-                      CommandParameter="{Binding}" />
+                                  CommandParameter="{Binding}" />
                     </DataTemplate>
                 </MenuItem.ItemTemplate>
-            </MenuItem>
+            </MenuItem>     
 
             <MenuItem Header="_Delete Question Pack" 
            Icon="{fa:Icon folderminus}"
            Command="{Binding DeletePackCommand}"
                                  />
 
-            <Separator/>
+            <Separator Style="{StaticResource MenuSeparatorStyle}"/>
 
             <MenuItem Header="E_xit" 
                       Icon="{fa:Icon xmark}"
@@ -46,7 +47,7 @@
         </MenuItem>
 
         <MenuItem Header="_Edit">
-            <MenuItem Header="A_dd Question" 
+            <MenuItem Header="_Add Question" 
                       InputGestureText="Ctrl + '+'" 
                       Icon="{fa:Icon plus}"
                       Command="{Binding ConfigurationViewModel.NewQuestionCommand}"
@@ -56,22 +57,22 @@
                       Icon="{fa:Icon minus}"
                       Command="{Binding ConfigurationViewModel.DeleteQuestionCommand}"/>
             <MenuItem x:Name="EditPack" 
-                      Header="E_dit Question Pack"
+                      Header="_Edit Question Pack"
                       InputGestureText="Ctrl + O" 
                       Command="{Binding EditPackCommand}"
                       Icon="{fa:Icon pentosquare}"/>
         </MenuItem>
 
         <MenuItem Header="_View">
-            <MenuItem Header="Play" 
+            <MenuItem Header="_Play" 
                       Icon="{fa:Icon play}" 
                       InputGestureText="Ctrl + P" 
                       Command="{Binding ShowPlayerViewCommand}"/>
-            <MenuItem Header="Edit" 
+            <MenuItem Header="_Edit" 
                       Icon="{fa:Icon play}" 
                       InputGestureText="Ctrl + E" 
                       Command="{Binding ShowConfigViewCommand}"/>
-            <MenuItem Header="Fullscreen"              
+            <MenuItem Header="_Fullscreen"              
              InputGestureText="Alt + enter" 
              Command="{Binding ToggleFullscreenCommand}"/>
         </MenuItem>

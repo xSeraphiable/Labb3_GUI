@@ -28,7 +28,7 @@
         <SolidColorBrush x:Key="SecondaryBrush" Color="#FFD48EF9"/>
         <SolidColorBrush x:Key="HeaderTextBrush" Color="#FF1A237E"/>
         <SolidColorBrush x:Key="BodyTextBrush" Color="#FF333333"/>
-        <SolidColorBrush x:Key="CorrectAnswerBrush" Color="#FF4CAF50"/>
+        <SolidColorBrush x:Key="CorrectAnswerBrush" Color="#FF00E676"/>
         <SolidColorBrush x:Key="IncorrectAnswerBrush" Color="#FFF44336"/>
 
 
@@ -220,6 +220,18 @@
             <Setter Property="Padding" Value="2" />
         </Style>
 
+        <Style TargetType="Separator" x:Key="MenuSeparatorStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Separator">
+                        <Grid Margin="10,2,0,2" Height="1">
+                            <Rectangle Fill="{StaticResource BackgroundBrush}" Height="1" Opacity="0.4"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!-- MenuItem (top-level + submenyer) -->
         <Style TargetType="MenuItem">
             <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
@@ -240,11 +252,12 @@
                                     <ContentPresenter ContentSource="Header"
                                               RecognizesAccessKey="True"
                                               VerticalAlignment="Center"
-                                              Margin="4,0,0,0"
+                                              Margin="6,0,0,0"
                                               DockPanel.Dock="Left"/>
                                     <!-- InputGestureText -->
                                     <TextBlock Text="{TemplateBinding InputGestureText}"
                                        Foreground="{TemplateBinding Foreground}"
+                                       FontWeight="Normal"        
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Right"
                                        Margin="8,0,4,0"
@@ -260,6 +273,7 @@
                                   Visibility="Collapsed"/>
                                 </DockPanel>
                             </Border>
+
 
                             <!-- Popup för undermeny -->
                             <Popup x:Name="SubmenuPopup"
@@ -277,7 +291,7 @@
                                 MinWidth="120"
                                 SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True"
-                                        KeyboardNavigation.DirectionalNavigation="Contained" />
+                                                KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </Border>
                             </Popup>
                         </Grid>
@@ -296,7 +310,7 @@
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="Border" Property="Background" Value="#FFCCCCCC"/>
                                 <!-- Ljusgrå bakgrund -->
-                                <Setter Property="Foreground" Value="#FF333333"/>
+                                <Setter Property="Foreground" Value="LightSlateGray"/>
                                 <!-- Mörkgrå text -->
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -304,6 +318,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
 
 
     </Application.Resources>

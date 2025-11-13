@@ -37,7 +37,7 @@ namespace Labb3_GUI.ViewModels
         public bool IsEditingQuestion => SelectedQuestion != null;
 
 
-        public DelegateCommand NewQuestionCommand { get; }
+        public DelegateCommand NewQuestionCommand  { get; }
         public DelegateCommand DeleteQuestionCommand { get; }
 
 

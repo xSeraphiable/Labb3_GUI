@@ -13,16 +13,17 @@
     </UserControl.Resources>
 
     <Grid>
-        <!-- Huvudlayout -->
+       
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Rubrik + Timer -->
+           
             <RowDefinition Height="*"/>
-            <!-- Frågetext + knappar centrerat -->
+            <RowDefinition Height="auto"/>
+        
         </Grid.RowDefinitions>
 
-        <!-- Rubrik + Timer -->
-        <Grid Grid.Row="0" Margin="20,20,20,40">
+     
+        <Grid Grid.Row="0" Margin="20,20,20,30">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
@@ -30,12 +31,13 @@
 
             <!-- Rubrik -->
             <Label Grid.Column="0" Grid.ColumnSpan="2" Content="Quiz time!" FontSize="28" 
-                   FontWeight="ExtraLight"
+                   FontWeight="ExtraLight" 
                    HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
             <!-- Timer -->
-            <TextBlock Grid.Column="1" Text="{Binding TimeLeft}" FontSize="28"
-                       FontWeight="ExtraBold" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <TextBlock Grid.Column="1" Text="{Binding TimeLeft}" FontSize="30" 
+                       FontWeight="ExtraBold" HorizontalAlignment="Right" VerticalAlignment="Top"
+                                            />
         </Grid>
 
         <!-- Frågetext + svarsknappar centrerat -->
@@ -53,7 +55,7 @@
 
             <!-- Övre rad knappar -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
-                <!-- Svar 0 -->
+            
                 <Grid Width="175" Height="125" Margin="10">
                     <Button Width="150" Height="100"
                             Command="{Binding AnswerCommand}"
@@ -62,7 +64,7 @@
                         <TextBlock Text="{Binding CurrentQuestion.ShuffledAnswers[0]}"
                                    TextWrapping="Wrap" TextAlignment="Center"/>
                     </Button>
-                    <fa:IconImage Icon="Check" Foreground="{StaticResource CorrectAnswerBrush}" Width="30" Height="30"
+                    <fa:IconImage Icon="Check" Foreground="{StaticResource CorrectAnswerBrush}" Width="40" Height="40"
                                   HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                   Visibility="{Binding ShowCorrectIndicator[0], Converter={StaticResource BoolToVis}}">
                         <fa:IconImage.Effect>
@@ -78,7 +80,7 @@
                     </fa:IconImage>
                 </Grid>
 
-                <!-- Svar 1 -->
+              
                 <Grid Width="175" Height="125"  Margin="10">
                     <Button Width="150" Height="100"
                             Command="{Binding AnswerCommand}"
@@ -87,7 +89,7 @@
                         <TextBlock Text="{Binding CurrentQuestion.ShuffledAnswers[1]}"
                                    TextWrapping="Wrap" TextAlignment="Center"/>
                     </Button>
-                    <fa:IconImage Icon="Check" Foreground="{StaticResource CorrectAnswerBrush}" Width="30" Height="30"
+                    <fa:IconImage Icon="Check" Foreground="{StaticResource CorrectAnswerBrush}" Width="40" Height="40"
                                   HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                   Visibility="{Binding ShowCorrectIndicator[1], Converter={StaticResource BoolToVis}}">
                         <fa:IconImage.Effect>
@@ -106,7 +108,7 @@
 
             <!-- Nedre rad knappar -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <!-- Svar 2 -->
+             
                 <Grid Width="175" Height="125"  Margin="10">
                     <Button Width="150" Height="100"
                             Command="{Binding AnswerCommand}"
@@ -115,7 +117,7 @@
                         <TextBlock Text="{Binding CurrentQuestion.ShuffledAnswers[2]}"
                                    TextWrapping="Wrap" TextAlignment="Center"/>
                     </Button>
-                    <fa:IconImage Icon="Check" Foreground="{StaticResource CorrectAnswerBrush}" Width="30" Height="30"
+                    <fa:IconImage Icon="Check" Foreground="{StaticResource CorrectAnswerBrush}" Width="40" Height="40"
                                   HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                   Visibility="{Binding ShowCorrectIndicator[2], Converter={StaticResource BoolToVis}}">
                         <fa:IconImage.Effect>
@@ -131,7 +133,7 @@
                     </fa:IconImage>
                 </Grid>
 
-                <!-- Svar 3 -->
+               
                 <Grid Width="175" Height="125"  Margin="10">
                     <Button Width="150" Height="100"
                             Command="{Binding AnswerCommand}"
@@ -140,7 +142,7 @@
                         <TextBlock Text="{Binding CurrentQuestion.ShuffledAnswers[3]}"
                                    TextWrapping="Wrap" TextAlignment="Center"/>
                     </Button>
-                    <fa:IconImage Icon="Check" Foreground="{StaticResource CorrectAnswerBrush}" Width="30" Height="30"
+                    <fa:IconImage Icon="Check" Foreground="{StaticResource CorrectAnswerBrush}" Width="40" Height="40"
                                   HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
                                   Visibility="{Binding ShowCorrectIndicator[3], Converter={StaticResource BoolToVis}}">
                         <fa:IconImage.Effect>
@@ -156,7 +158,15 @@
                     </fa:IconImage>
                 </Grid>
             </StackPanel>
-
+        
         </StackPanel>
+
+
+        <TextBlock Grid.Row="2" Text="{Binding CurrentQuestionNumber}"
+   FontSize="20"
+               Margin="0 00 10 10"
+   HorizontalAlignment="Right"/>
+     
+    
     </Grid>
 </UserControl>
