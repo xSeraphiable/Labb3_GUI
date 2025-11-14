@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Labb3_GUI.Dialogs"
         mc:Ignorable="d"
-        Title="Pack Options" Height="200" Width="200"
+        Title="Pack Options" Height="225" Width="200"
         Background="{StaticResource BackgroundBrush}"
+        Icon="{StaticResource AppIcon}"
         DataContext="{Binding MainWindowViewModel}">
     
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
@@ -18,7 +20,7 @@
             
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
+        <StackPanel Grid.Row="1">
 
             <Label Content="Pack name:" Margin="10,0,0,0" Padding="0" />
             <TextBox x:Name="packName" 
@@ -27,7 +29,7 @@
 
         </StackPanel>
 
-        <StackPanel Grid.Row="1" >
+        <StackPanel Grid.Row="2" >
 
             <Label Content="Difficulty:" Margin="10,0,0,0" Padding="0" />
             <ComboBox Margin="10 0 10 0"
@@ -37,23 +39,25 @@
 
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
+        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0 5 0 5">
             <Label Content="Time limit:" Margin="10,0,0,0" Padding="0" />
             <TextBlock Text="{Binding ActivePack.TimeLimitInSeconds}" 
                Margin="5,0,0,0"
-               FontWeight="Bold"/>
+               FontWeight="Normal"/>
+            <TextBlock Text="seconds" 
+    Margin="5,0,0,0"
+    FontWeight="Normal"/>
         </StackPanel>
 
-        <Slider Grid.Row="3" x:Name="TimeLimitSlider"
+        <Slider Grid.Row="4" x:Name="TimeLimitSlider"
         Minimum="5"
         Maximum="60"
         TickFrequency="5"
-        IsSnapToTickEnabled="True"
+        IsSnapToTickEnabled="False"
         Margin="10,0,10,0"
         TickPlacement="BottomRight"
         Value="{Binding ActivePack.TimeLimitInSeconds, UpdateSourceTrigger=PropertyChanged}"
-        AutoToolTipPlacement="TopLeft"
-        AutoToolTipPrecision="0" />
+         />
 
     </Grid>
 </Window>

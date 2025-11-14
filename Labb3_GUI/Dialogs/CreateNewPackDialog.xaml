@@ -7,6 +7,7 @@
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
         Title="New Question Pack" Height="250" Width="200"
+        Icon="{StaticResource AppIcon}"
         Background="{StaticResource BackgroundBrush}"
         DataContext="{Binding MainWindowViewModel}"
     >
@@ -41,11 +42,14 @@
         </StackPanel>
 
         <StackPanel Grid.Row="3">
-            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
-                <Label Content="Choose time limit:" Margin="10,0,0,0" Padding="0" />
+            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0 5 0 5">
+                <Label Content="Time limit:" Margin="10,0,0,0" Padding="0" />
                 <TextBlock Text="{Binding ActivePack.TimeLimitInSeconds}" 
-       Margin="5,0,0,0"
-       FontWeight="Bold"/>
+                           Margin="5,0,0,0"
+                           FontWeight="Normal"/>
+                <TextBlock Text="seconds" 
+                           Margin="5,0,0,0"
+                           FontWeight="Normal"/>
             </StackPanel>
 
             <Slider x:Name="TimeLimitSlider"
@@ -55,12 +59,9 @@
                     IsSnapToTickEnabled="True"
                     Margin="10,0,10,0" 
                     TickPlacement="BottomRight"
-                    Value="{Binding ActivePack.TimeLimitInSeconds, UpdateSourceTrigger=PropertyChanged}"
-                    AutoToolTipPlacement="TopLeft"
-                    AutoToolTipPrecision="0"
-                    
+                    Value="{Binding ActivePack.TimeLimitInSeconds, UpdateSourceTrigger=PropertyChanged}"                                    
                      />
-            <!--<TextBlock Margin="10 0 0 0" Text="{Binding ElementName=TimeLimitSlider, Path=Value}"/>-->
+          
 
         </StackPanel>
 
@@ -70,16 +71,14 @@
                 x:Name="ConfirmButton" 
                 Content="Confirm" 
                 Height="25"
-                Margin="8" 
-                
+                Margin="8"                 
                 Command="{Binding SaveNewPackCommand}"/>
             <Button 
                 x:Name="CancelButton" 
                 Height="25"
                 Content="Cancel" 
                 Margin="8" 
-                
-                Click="CancelButton_Click"/>
+                Command="{Binding CancelNewPackCommand}"/>
 
         </StackPanel>
 

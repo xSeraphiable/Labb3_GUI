@@ -12,8 +12,9 @@ namespace Labb3_GUI.ViewModels
 {
     internal class ConfigurationViewModel : ViewModelBase
     {
-        public MainWindowViewModel? _mainWindowViewModel { get; }
+        private Question _selectedQuestion;
 
+        public MainWindowViewModel? _mainWindowViewModel { get; }
         public QuestionPackViewModel? ActivePack { get => _mainWindowViewModel?.ActivePack; }
         public ConfigurationViewModel(MainWindowViewModel? mainWindowViewModel)
         {
@@ -41,15 +42,12 @@ namespace Labb3_GUI.ViewModels
 
         }
 
-        public bool IsEditingQuestion => SelectedQuestion != null;
-
-
         public DelegateCommand NewQuestionCommand { get; }
         public DelegateCommand DeleteQuestionCommand { get; }
 
+        public bool IsEditingQuestion => SelectedQuestion != null;
 
 
-        private Question _selectedQuestion;
         public Question SelectedQuestion
         {
             get => _selectedQuestion;
@@ -65,7 +63,7 @@ namespace Labb3_GUI.ViewModels
 
         public void DeleteQuestion(object args)
         {
-            //var pack = ActivePack;
+            
             if (ActivePack == null || SelectedQuestion == null)
                 return;
 
@@ -96,7 +94,7 @@ namespace Labb3_GUI.ViewModels
                 }
             }
 
-            SelectedQuestion = new Question("");
+            SelectedQuestion = new Question("<New question>");
 
             ActivePack.Questions.Add(SelectedQuestion);
 

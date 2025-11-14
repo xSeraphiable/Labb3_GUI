@@ -22,7 +22,7 @@
         </DataTemplate>
 
         <!-- Ikon -->
-        <BitmapImage x:Key="AppIcon" UriSource="Assets/ctrlquiz.ico"/>
+        <BitmapImage x:Key="AppIcon" UriSource="Assets/CtrlQuiz.ico"/>
 
         <!-- Färgtema -->
         <SolidColorBrush x:Key="BackgroundBrush" Color="#FFE0F7FA"/>
