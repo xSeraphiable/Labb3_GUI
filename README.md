@@ -1,6 +1,6 @@
 <h1>What is this?</h1>
 A WPF application for creating, configuring, and running quiz question packs.
-This project serves as the final assignment in the C# course at IT-Högskolan, focusing on applying concepts such as MVVM, asynchronous operations, structured UI development, and clean application architecture.
+This project serves as the third and final assignment in the C# course at IT-Högskolan, focusing on applying concepts such as MVVM, asynchronous operations, structured UI development, and clean application architecture.
 
 <h1>The application includes:</h1>
 
